@@ -21,17 +21,17 @@ class App extends Component {
     </Switch>
   )
 
-  componentDidMount(){
-  //   console.log("ola mundo")
-  //   console.log(this.props.redirectAberto)
-    setTimeout(() => {
-      this.props.history.push('/login')
-      // console.log("ola mundo 2")
-      // this.props.abreRedirect()
-      // console.log(this.props.redirectAberto)
-    }, 5000)
+  // componentDidMount(){
+  // //   console.log("ola mundo")
+  // //   console.log(this.props.redirectAberto)
+  //   setTimeout(() => {
+  //     this.props.history.push('/login')
+  //     // console.log("ola mundo 2")
+  //     // this.props.abreRedirect()
+  //     // console.log(this.props.redirectAberto)
+  //   }, 5000)
     
-  }
+  // }
 
   render() {
     // if(this.props.redirectAberto){
