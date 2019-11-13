@@ -1,35 +1,44 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import '../../../suporte/icons.css'
-const topNavBar = () => {
 
-    setTimeout(() => {
-        document.addEventListener('DOMContentLoaded', function () {
-            let elems = document.querySelectorAll('.sidenav');
-            let instances = M.Sidenav.init(elems, {});
-            console.log("os elementos sao")
-            console.log(elems)
-        });
-    }, 5000)
 
-    return (
+const topNavBar = (props) => {
+    document.addEventListener('DOMContentLoaded', function () {
+        const elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems, {});
+    });
+
+    return(
         <div>
             <nav className="#5c6bc0 indigo lighten-1">
                 <div className="nav-wrapper">
                     <a href="#" className="brand-logo">Stock Management</a>
                     <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="sass.html">Sass</a></li>
-                        <li><a href="badges.html">Components</a></li>
-                        <li><a href="collapsible.html">JavaScript</a></li>
+                        {props.logado != true ? <li><a href="sass.html">Login</a></li> : <li><a href="sass.html">Logout</a></li>}
                     </ul>
                 </div>
             </nav>
+            <ul className="sidenav" id="mobile-demo">
+                {props.logado != true ? <li><a href="sass.html">Login</a></li> : <li><a href="sass.html">Logout</a></li>}
+            </ul>
         </div>
+
     )
+
+
+        
+}
+
+const mapStateToProps = state => {
+    return {
+        logado: state.autenticacao.logado
+    }
 }
 
 
 
-export default topNavBar
+export default connect(mapStateToProps)(topNavBar)

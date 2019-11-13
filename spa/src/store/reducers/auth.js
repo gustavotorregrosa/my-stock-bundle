@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes'
 import { atualizaObjeto } from '../utility'
 
 const initialState = {
-    abreRedirect: false
+    abreRedirect: false,
+    logado: false
 }
 
 const abreRedirect = (state, action) => {
