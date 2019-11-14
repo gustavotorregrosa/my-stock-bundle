@@ -1,0 +1,18 @@
+Trocar o logo e favicon
+diminuir logo
+Ajustar margens logo
+Melhorar cores (preto?)
+login/logout
+localStorage usuario
+nome do usuario deve aparecer quando logado
+sidenav principal
+    quando nao logado, o botao deve estar condicionado ao tamanho da tela e exibir a sidenav auxiliar
+
+    quando logado, esconda a sidenav auxiliar, esconda o botao auxiliar e, o botao e a sidenav principal
+    deve estar presente, mesmo em tela cheia
+
+cadastro de categorias (com icones?)
+cadastro de produtos (com fotos)
+movimentacoes
+
+
