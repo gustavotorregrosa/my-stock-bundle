@@ -2,12 +2,13 @@ import React from 'react'
 import classes from './telaInicial.module.css'
 import Logo from '../logo/logo'
 import NavBar from './topNavBar/topNavBar'
+import centralizar from '../../../hoc/centralizador/centralizador'
+
 
 const telaInicial = () => (
     <div>
-        <NavBar/>
-        <h2 className={classes.verde}>Tela inicial...</h2>
-        <Logo/>
+        <NavBar />
+       {centralizar(Logo)}
     </div>
 )
 
