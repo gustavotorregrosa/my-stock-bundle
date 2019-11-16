@@ -13,7 +13,7 @@ const topNavBar = (props) => {
 
     return(
         <div>
-            <nav className="#5c6bc0 indigo lighten-1">
+            <nav className="black">
                 <div className="nav-wrapper">
                     <a href="#" className="brand-logo">Stock Management</a>
                     <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>

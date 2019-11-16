@@ -11,7 +11,7 @@ const telaInicial = () => (
         <NavBar />
        {estilizar(Logo, {
             textAlign: "center",
-            marginTop: "4em"
+            marginTop: "8em"
        })}
     </div>
 )
