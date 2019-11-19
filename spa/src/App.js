@@ -20,8 +20,6 @@ class App extends Component {
     </Switch>
   )
 
-
-
   render() {
     return this.rotas
   }
