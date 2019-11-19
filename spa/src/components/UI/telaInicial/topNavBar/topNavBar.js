@@ -12,7 +12,13 @@ class TopNavBar extends Component {
         document.addEventListener('DOMContentLoaded', function () {
             const elems = document.querySelectorAll('.sidenav');
             M.Sidenav.init(elems, {});
-        });    
+        });
+        
+    }
+
+    abreModalLogin(e){
+        e.preventDefault()
+        this.childAbreModalLogin()
     }
 
     render(){
@@ -23,14 +29,14 @@ class TopNavBar extends Component {
                         <a href="#" className="brand-logo">Stock Management</a>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.props.logado != true ? <ul><a>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
+                            {this.props.logado != true ? <ul><a onClick={(e) => this.abreModalLogin(e) }>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
                         </ul>
                     </div>
                 </nav>
                 <ul className="sidenav" id="mobile-demo">
                     {this.props.logado != true ? <ul><a>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
                 </ul>
-                <ModalLogin/>
+                <ModalLogin setAbreModal={f => this.childAbreModalLogin = f}/>
             </div>
     
         )
