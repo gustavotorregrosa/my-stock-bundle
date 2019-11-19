@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import '../../../suporte/icons.css'
+import ModalLogin from '../../login/login'
 
 
 class TopNavBar extends Component {
@@ -22,14 +23,14 @@ class TopNavBar extends Component {
                         <a href="#" className="brand-logo">Stock Management</a>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.props.}
-                            {this.props.logado != true ? <NavItem link="/login" exact>Login</NavItem> : <NavItem link="/logout" exact>Logout</NavItem>}
+                            {this.props.logado != true ? <ul><a>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
                         </ul>
                     </div>
                 </nav>
                 <ul className="sidenav" id="mobile-demo">
-                    {this.props.logado != true ? <NavItem link="/login" exact>Login</NavItem> : <NavItem link="/logout" exact>Logout</NavItem>}
+                    {this.props.logado != true ? <ul><a>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
                 </ul>
+                <ModalLogin/>
             </div>
     
         )

@@ -15,7 +15,7 @@ const asyncLogin = asyncComponent(() => {
 class App extends Component {
   rotas = (
     <Switch>
-      <Route path="/login" component={asyncLogin}/>
+      {/* <Route path="/login" component={asyncLogin}/> */}
       <Route path="/" component={TelaInicial}/>
     </Switch>
   )
