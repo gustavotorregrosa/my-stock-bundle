@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import NavItem from '../../NavItem/navItem'
 import { connect } from 'react-redux'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
@@ -21,12 +22,13 @@ class TopNavBar extends Component {
                         <a href="#" className="brand-logo">Stock Management</a>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.props.logado != true ? <li><a href="sass.html">Login</a></li> : <li><a href="sass.html">Logout</a></li>}
+                            {this.props.}
+                            {this.props.logado != true ? <NavItem link="/login" exact>Login</NavItem> : <NavItem link="/logout" exact>Logout</NavItem>}
                         </ul>
                     </div>
                 </nav>
                 <ul className="sidenav" id="mobile-demo">
-                    {this.props.logado != true ? <li><a href="sass.html">Login</a></li> : <li><a href="sass.html">Logout</a></li>}
+                    {this.props.logado != true ? <NavItem link="/login" exact>Login</NavItem> : <NavItem link="/logout" exact>Logout</NavItem>}
                 </ul>
             </div>
     

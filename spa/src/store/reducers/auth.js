@@ -3,7 +3,8 @@ import { atualizaObjeto } from '../utility'
 
 const initialState = {
     abreRedirect: false,
-    logado: false
+    logado: false,
+    
 }
 
 const abreRedirect = (state, action) => {
