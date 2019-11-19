@@ -3,11 +3,10 @@ import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 
 class ModalLogin extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.elem = null
         this.instance = null
-        this.instanceF = null
 
 
     }
@@ -16,16 +15,12 @@ class ModalLogin extends Component {
         // document.addEventListener('DOMContentLoaded', () => {
             this.elem = document.querySelector('.modal')
             this.instance = M.Modal.init(this.elem, {})
-            this.instanceF = M.Modal.getInstance(this.elem)
         // })
         setTimeout(() => { this.abrirModal() }, 3000)
     }
 
     abrirModal = () => {
-        console.log(this.elem)
-        console.log(this.instance)
-        console.log(this.instanceF)
-        // this.instance.open()
+        this.instance.open()
     }
 
     render() {
