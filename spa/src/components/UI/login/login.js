@@ -11,12 +11,21 @@ class ModalLogin extends Component {
     }
 
     state = {
-        loading: false
+        loading: false,
+        email: '',
+        password: ''
     }
 
     componentDidMount() {
         this.elem = document.querySelector('.modal')
-        this.instance = M.Modal.init(this.elem, {})
+        this.instance = M.Modal.init(this.elem, {
+            onCloseEnd: () => this.setState({
+                loading: false,
+                email: '',
+                password: ''
+            })
+
+        })
         this.props.setAbreModal(this.abrirModal)
     }
 
@@ -30,7 +39,22 @@ class ModalLogin extends Component {
         this.setState(prevState => ({
             loading: !prevState.loading
         }))
+        console.log(this.state)
     }
+
+    handleChangeEmail = (e) => {
+        this.setState({
+            email: e.target.value
+        })
+    }
+
+
+    handleChangePassword = (e) => {
+        this.setState({
+            password: e.target.value
+        })
+    }
+
 
     render() {
         return (
@@ -40,20 +64,20 @@ class ModalLogin extends Component {
                         <h6>Login</h6>
                         <div className="row">
                             <div class="input-field col s12">
-                                <input id="email" type="email" className="validate" />
+                                <input id="email" value={this.state.email} onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
                                 <label for="email">E-mail</label>
                             </div>
                         </div>
                         <div className="row">
                             <div class="input-field col s12">
-                                <input id="password" type="password" className="validate" />
+                                <input id="password" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" className="validate" />
                                 <label for="password">Password</label>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <a href="#!" onClick={(e) => this.fazerLogin(e)} className="waves-effect waves-green btn-flat">Agree</a>
                         </div>
-                           {this.state.loading ? (<div class="progress"><div class="indeterminate"></div></div>) : null}
+                        {this.state.loading ? (<div class="progress"><div class="indeterminate"></div></div>) : null}
                     </div>
 
                 </div>
