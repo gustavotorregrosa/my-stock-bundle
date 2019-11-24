@@ -17,10 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/teste', function () {
-    return json_encode([
-        'nome' => 'Fulano de tal',
-        'sobrenome' => 'Silva',
-        'mensagem' => 'Bateu aqui direitinho'
-    ]);
-});
+
+Route::post('/usuario/login', 'Auth\LoginController@loginComSenha');

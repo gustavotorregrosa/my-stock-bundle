@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
+import * as helper from '../../suporte/helper'
 
 class ModalLogin extends Component {
     constructor(props) {
@@ -36,10 +37,19 @@ class ModalLogin extends Component {
 
     fazerLogin = (e) => {
         e.preventDefault()
-        this.setState(prevState => ({
-            loading: !prevState.loading
-        }))
-        console.log(this.state)
+        this.setState({
+            loading: true
+        })
+        console.log(helper.url)
+        let myHeaders = new Headers
+        myHeaders.set("Content-Type", "application/json")
+        let opcoes = {
+            url: helper.url.concat('usuario/login'),
+            method: 'post',
+            body: JSON.stringify(this.state),
+            headers: myHeaders
+        }
+        fetch(opcoes.url, opcoes).then(data => data.json()).then(data => console.log(data))
     }
 
     handleChangeEmail = (e) => {
