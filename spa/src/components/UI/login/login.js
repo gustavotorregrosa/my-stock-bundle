@@ -49,7 +49,15 @@ class ModalLogin extends Component {
             body: JSON.stringify(this.state),
             headers: myHeaders
         }
-        fetch(opcoes.url, opcoes).then(data => data.json()).then(data => console.log(data))
+        let status
+        fetch(opcoes.url, opcoes).then(resposta => {
+            status = resposta.status
+            return resposta.json()
+        }).then(data => {
+            M.toast({html: data.mensagem})
+            M.toast({html: 'O Codigo: ' + status})
+        
+        })
     }
 
     handleChangeEmail = (e) => {

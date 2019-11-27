@@ -40,11 +40,10 @@ class LoginController extends Controller
 
     public function loginComSenha(Request $request){
         $credentials = $request->only('email', 'password');
-        $conteudo = [
-            'teste' => 'deu certo',
-            'email' =>$credentials['email']
-        ];
-
-        return respostaCors($conteudo, 203);
+        if(\Auth::attempt($credentials)){
+            $usuario = \App\Models\User::where('email', $credentials['email'])->first();
+            return respostaCors([], 200, "Usuario se logou com sucesso");
+        }
+        return respostaCors([], 401, "Usuario/senha invalidos");
     }
 }
