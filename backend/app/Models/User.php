@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'perfil_sistemico'
     ];
 
     /**
@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function perfilSistemico(){     
+        return $this->belongsTo('App\Models\PerfilSistemico', 'perfil_sistemico');
+    }
+
+    public function populaPerfil($prf){
+        $this->perfil = $prf;
+    }
+
 }
