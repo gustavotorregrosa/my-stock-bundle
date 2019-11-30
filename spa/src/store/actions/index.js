@@ -1,1 +1,1 @@
-export { abreRedirect, fechaRedirect } from './auth'
+export { abreRedirect, fechaRedirect, verificaLoginLS } from './auth'

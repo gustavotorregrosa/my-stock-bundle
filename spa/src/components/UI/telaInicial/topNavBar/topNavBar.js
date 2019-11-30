@@ -5,6 +5,7 @@ import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import '../../../suporte/icons.css'
 import ModalLogin from '../../login/login'
+import ModalLogout from '../../logout/logout'
 
 
 class TopNavBar extends Component {
@@ -21,6 +22,11 @@ class TopNavBar extends Component {
         this.childAbreModalLogin()
     }
 
+    abreModalLogout(e){
+        e.preventDefault()
+        this.childAbreModalLogout()
+    }
+
     render(){
         return(
             <div>
@@ -29,14 +35,15 @@ class TopNavBar extends Component {
                         <a href="#" className="brand-logo">Stock Management</a>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.props.logado != true ? <ul><a onClick={(e) => this.abreModalLogin(e) }>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
+                            {this.props.logado != true ? <ul><a onClick={(e) => this.abreModalLogin(e) }>Login</a></ul> : <ul><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></ul> }
                         </ul>
                     </div>
                 </nav>
                 <ul className="sidenav" id="mobile-demo">
-                    {this.props.logado != true ? <ul><a>Login</a></ul> : <NavItem link="/logout" exact>Logout</NavItem>}
+                    {this.props.logado != true ? <ul><a>Login</a></ul> : <ul><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></ul>}
                 </ul>
                 <ModalLogin setAbreModal={f => this.childAbreModalLogin = f}/>
+                <ModalLogout setAbreModal={f => this.childAbreModalLogout = f} />
             </div>
     
         )

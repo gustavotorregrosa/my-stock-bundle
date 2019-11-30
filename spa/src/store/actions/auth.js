@@ -12,3 +12,9 @@ export const fechaRedirect = () => {
     }
 }
 
+export const verificaLoginLS = () => {
+    return {
+        type: actionTypes.VERIFICA_LOGIN_LOCALSTORAGE
+    }
+}
+

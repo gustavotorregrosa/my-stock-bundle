@@ -20,6 +20,10 @@ class App extends Component {
     </Switch>
   )
 
+  componentDidMount(){
+    this.props.verificaLoginLocalStorage()
+  }
+
   render() {
     return this.rotas
   }
@@ -34,7 +38,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    abreRedirect: () => dispatch(actions.abreRedirect())
+    abreRedirect: () => dispatch(actions.abreRedirect()),
+    verificaLoginLocalStorage: () => dispatch(actions.verificaLoginLS())
   }
 }
 

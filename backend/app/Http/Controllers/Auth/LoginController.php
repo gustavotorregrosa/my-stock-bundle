@@ -45,6 +45,6 @@ class LoginController extends Controller
             $conteudo = \App\Models\JWTValidator::dadosUsuario($usuario);
             return respostaCors($conteudo, 200, "Usuario se logou com sucesso");
         }
-        return respostaCors([], 401, "Usuario/senha invalidos");
+        return respostaCors([], 401, "Usuario/senha inválidos");
     }
 }

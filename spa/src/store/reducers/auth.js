@@ -3,7 +3,7 @@ import { atualizaObjeto } from '../utility'
 
 const initialState = {
     abreRedirect: false,
-    logado: false,
+    logado: false
     
 }
 
@@ -19,12 +19,32 @@ const fechaRedirect = (state, action) => {
     })
 }
 
+const atualizaLoginLS = (state, action) => {
+    let objUsuario = localStorage.getItem("usuario")
+    let jwt = localStorage.getItem("jwt")
+    let objAtualiza = {
+        logado: false,
+    }
+    if(objUsuario && jwt){
+        objAtualiza = {
+            ...objAtualiza,
+            logado: true,
+            usuario: objUsuario,
+            jwt
+        }
+    }
+    return atualizaObjeto(state, objAtualiza)
+
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type){
         case actionTypes.ABRE_REDIRECT:
             return abreRedirect(state, action)
         case actionTypes.FECHA_REDIRECT:
             return fechaRedirect(state, action)
+        case actionTypes.VERIFICA_LOGIN_LOCALSTORAGE:
+            return atualizaLoginLS(state, action)
         default:
             return state
     }

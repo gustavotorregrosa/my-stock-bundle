@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import * as helper from '../../suporte/helper'
+import { connect } from 'react-redux'
+import * as actions from '../../../store/actions/index'
 
 class ModalLogin extends Component {
     constructor(props) {
@@ -18,7 +20,7 @@ class ModalLogin extends Component {
     }
 
     componentDidMount() {
-        this.elem = document.querySelector('.modal')
+        this.elem = document.getElementById('modal1')
         this.instance = M.Modal.init(this.elem, {
             onCloseEnd: () => this.setState({
                 loading: false,
@@ -35,12 +37,15 @@ class ModalLogin extends Component {
         M.updateTextFields()
     }
 
+    fechaModal = () => {
+        this.instance.close()
+    }
+
     fazerLogin = (e) => {
         e.preventDefault()
         this.setState({
             loading: true
         })
-        console.log(helper.url)
         let myHeaders = new Headers
         myHeaders.set("Content-Type", "application/json")
         let opcoes = {
@@ -54,8 +59,14 @@ class ModalLogin extends Component {
             status = resposta.status
             return resposta.json()
         }).then(data => {
+            if(status == 200){
+                localStorage.setItem("usuario", JSON.stringify(data.usuario))
+                localStorage.setItem("jwt", data.jwt)
+                this.props.verificaLoginLocalStorage()
+               
+            } 
+            this.fechaModal()
             M.toast({html: data.mensagem})
-            M.toast({html: 'O Codigo: ' + status})
         
         })
     }
@@ -79,7 +90,6 @@ class ModalLogin extends Component {
             <div>
                 <div id="modal1" className="modal">
                     <div className="modal-content">
-                        <h6>Login</h6>
                         <div className="row">
                             <div class="input-field col s12">
                                 <input id="email" value={this.state.email} onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
@@ -93,7 +103,7 @@ class ModalLogin extends Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" onClick={(e) => this.fazerLogin(e)} className="waves-effect waves-green btn-flat">Agree</a>
+                            <a href="#!" onClick={(e) => this.fazerLogin(e)} className="waves-effect waves-green btn-flat">Login</a>
                         </div>
                         {this.state.loading ? (<div class="progress"><div class="indeterminate"></div></div>) : null}
                     </div>
@@ -104,4 +114,10 @@ class ModalLogin extends Component {
     }
 }
 
-export default ModalLogin
+const mapDispatchToProps = dispatch => {
+    return {
+        verificaLoginLocalStorage: () => dispatch(actions.verificaLoginLS())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ModalLogin)
