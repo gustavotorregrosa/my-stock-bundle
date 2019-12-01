@@ -91,21 +91,21 @@ class ModalLogin extends Component {
                 <div id="modal1" className="modal">
                     <div className="modal-content">
                         <div className="row">
-                            <div class="input-field col s12">
+                            <div className="input-field col s12">
                                 <input id="email" value={this.state.email} onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
-                                <label for="email">E-mail</label>
+                                <label htmlFor="email">E-mail</label>
                             </div>
                         </div>
                         <div className="row">
-                            <div class="input-field col s12">
+                            <div className="input-field col s12">
                                 <input id="password" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" className="validate" />
-                                <label for="password">Password</label>
+                                <label htmlFor="password">Password</label>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <a href="#!" onClick={(e) => this.fazerLogin(e)} className="waves-effect waves-green btn-flat">Login</a>
                         </div>
-                        {this.state.loading ? (<div class="progress"><div class="indeterminate"></div></div>) : null}
+                        {this.state.loading ? (<div className="progress"><div className="indeterminate"></div></div>) : null}
                     </div>
 
                 </div>

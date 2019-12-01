@@ -3,7 +3,7 @@ import { atualizaObjeto } from '../utility'
 
 const initialState = {
     abreRedirect: false,
-    logado: false
+    logado: null
     
 }
 
@@ -24,6 +24,8 @@ const atualizaLoginLS = (state, action) => {
     let jwt = localStorage.getItem("jwt")
     let objAtualiza = {
         logado: false,
+        usuario: null,
+        jwt: null
     }
     if(objUsuario && jwt){
         objAtualiza = {

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Logo from '../logo/logo'
 import NavBar from './topNavBar/topNavBar'
 import estilizar from '../../../hoc/efeitos/aplicaEstilos'
-import BotaoTeste from '../botaoTeste/botaoTeste'
 
 class TelaInicial extends Component {
     render() {
@@ -13,8 +12,6 @@ class TelaInicial extends Component {
                     textAlign: "center",
                     marginTop: "8em"
                 })}
-                <BotaoTeste/>
-
             </div>
         )
     }

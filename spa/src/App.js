@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import TelaInicial from './components/UI/telaInicial/telaInicial'
 import TelaRedirect from './components/UI/redirect/redirect'
-// import TelaLogin from './components/UI/login/login'
+import TelaAdmin from './components/UI/telaInicial/admin/telaAdmin'
 import * as actions from './store/actions/index'
 import asyncComponent from './hoc/asyncComponent/asyncComponent'
 import { connect } from 'react-redux'
@@ -15,8 +15,8 @@ const asyncLogin = asyncComponent(() => {
 class App extends Component {
   rotas = (
     <Switch>
-      {/* <Route path="/login" component={asyncLogin}/> */}
-      <Route path="/" component={TelaInicial}/>
+      <Route path="/admin" component={TelaAdmin}/>
+      <Route path="/" exact component={TelaInicial}/>
     </Switch>
   )
 
