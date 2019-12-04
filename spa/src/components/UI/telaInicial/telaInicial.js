@@ -2,12 +2,20 @@ import React, { Component } from 'react'
 import Logo from '../logo/logo'
 import NavBar from './topNavBar/topNavBar'
 import estilizar from '../../../hoc/efeitos/aplicaEstilos'
+import { connect } from 'react-redux'
+
 
 class TelaInicial extends Component {
+    componentDidUpdate(){
+        if(this.props.logado){
+            this.props.history.push('/admin')
+        }
+    }
+
     render() {
         return (
             <div>
-                <NavBar />
+                <NavBar/>
                 {estilizar(Logo, {
                     textAlign: "center",
                     marginTop: "8em"
@@ -17,5 +25,12 @@ class TelaInicial extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        logado: state.autenticacao.logado,
+        usuario: state.autenticacao.usuario
+    }
+}
 
-export default TelaInicial
+
+export default connect(mapStateToProps)(TelaInicial)

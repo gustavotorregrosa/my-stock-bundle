@@ -5,12 +5,14 @@ import * as helper from '../../suporte/helper'
 import { connect } from 'react-redux'
 import * as actions from '../../../store/actions/index'
 
+
 class ModalLogin extends Component {
     constructor(props) {
         super(props)
         this.elem = null
         this.instance = null
         this.abrirModal = this.abrirModal.bind(this)
+       
     }
 
     state = {
@@ -18,6 +20,9 @@ class ModalLogin extends Component {
         email: '',
         password: ''
     }
+
+    
+
 
     componentDidMount() {
         this.elem = document.getElementById('modal1')
@@ -30,6 +35,7 @@ class ModalLogin extends Component {
 
         })
         this.props.setAbreModal(this.abrirModal)
+
     }
 
     abrirModal = () => {
@@ -86,6 +92,10 @@ class ModalLogin extends Component {
 
 
     render() {
+        // setTimeout(() => {
+        //     // this.context.router.history.push('/admin')
+        //     this.historico
+        // }, 5000)
         return (
             <div>
                 <div id="modal1" className="modal">

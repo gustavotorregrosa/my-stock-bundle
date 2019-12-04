@@ -26,6 +26,6 @@ const mapStateToProps = state => {
         logado: state.autenticacao.logado,
         usuario: state.autenticacao.usuario
     }
-  }
+}
 
 export default connect(mapStateToProps)(TelaAdmin)
