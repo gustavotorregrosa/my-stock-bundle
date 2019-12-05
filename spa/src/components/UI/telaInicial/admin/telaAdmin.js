@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 
 class TelaAdmin extends Component {
 
-    componentDidUpdate(prevProps){
-        if(prevProps.logado === null && this.props.logado === false){
+    componentDidUpdate(){
+        if(this.props.logado === false){
             this.props.history.push('/')
         }
     }
