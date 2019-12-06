@@ -94,10 +94,9 @@ class ModalRegistro extends Component {
             return resposta.json()
         }).then(data => {
             if (status == 200) {
-                console.log(data)
-                // localStorage.setItem("usuario", JSON.stringify(data.usuario))
-                // localStorage.setItem("jwt", data.jwt)
-                // this.props.verificaLoginLocalStorage()
+                localStorage.setItem("usuario", JSON.stringify(data.usuario))
+                localStorage.setItem("jwt", data.jwt)
+                this.props.verificaLoginLocalStorage()
 
             }
             this.fechaModal()

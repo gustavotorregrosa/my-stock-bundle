@@ -72,6 +72,13 @@ class RegisterController extends Controller
     }
 
     protected function registrarUsuario(Request $request){
-        return respostaCors($request->all(), 200, "Teste criar usuario")
+        User::create([
+            'name' => $request->input('nome'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password'))
+        ]);
+        $usuario = \App\Models\User::where('email', $request->input('email'))->first();
+        $conteudo = \App\Models\JWTValidator::dadosUsuario($usuario);
+        return respostaCors($conteudo, 200, "Usuario criado com sucesso");
     }
 }
