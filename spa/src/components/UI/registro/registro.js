@@ -12,7 +12,7 @@ class ModalRegistro extends Component {
         this.elem = null
         this.instance = null
         this.abrirModal = this.abrirModal.bind(this)
-
+        this.objComputed = this.computed()
     }
 
     state = {
@@ -28,14 +28,46 @@ class ModalRegistro extends Component {
         this.instance = M.Modal.init(this.elem, {
             onCloseEnd: () => this.setState({
                 loading: false,
+                nome: '',
                 email: '',
-                password: ''
+                password: '',
+                pvalidation: ''
             })
 
         })
         this.props.setAbreModal(this.abrirModal)
-
     }
+
+
+    computed = () => {
+        function confirmacaoValida(senha, confirmacao){
+            return senha == confirmacao
+        }
+        let classeConfirmacaoSenha = ""
+        if(this.state.pvalidation !== ""){
+            classeConfirmacaoSenha = "invalid"
+            if(confirmacaoValida(this.state.password, this.state.pvalidation)){
+                classeConfirmacaoSenha = "valid"
+            }
+        }
+        let classesBtnSubmit = "waves-effect waves-green btn-flat disabled"
+        
+        if(!this.state.loading && this.state.nome.length > 0 && this.state.email.length > 5 && this.state.email.includes("@") && this.state.password.length >= 8 && confirmacaoValida(this.state.password, this.state.pvalidation)){
+            classesBtnSubmit = "waves-effect waves-green btn-flat"
+        }
+
+        return {
+            classeConfirmacaoSenha,
+            classesBtnSubmit
+        }
+    }
+
+    componentDidUpdate(){
+        this.objComputed = this.computed()
+    }
+
+    
+
 
     abrirModal = () => {
         this.instance.open()
@@ -46,7 +78,7 @@ class ModalRegistro extends Component {
         this.instance.close()
     }
 
-    fazerLogin = (e) => {
+    registrar = (e) => {
         e.preventDefault()
         this.setState({
             loading: true
@@ -57,7 +89,7 @@ class ModalRegistro extends Component {
             url: helper.url.concat('usuario/registrar'),
             method: 'post',
             body: JSON.stringify(this.state),
-            headers: myHeaderslogin
+            headers: myHeaders
         }
         let status
         fetch(opcoes.url, opcoes).then(resposta => {
@@ -103,36 +135,39 @@ class ModalRegistro extends Component {
 
 
     render() {
+        // let objComputed = this.computed()
         return (
             <div>
-                <div id="modal3" className="modal">
+                <div id="modal3" className="modal" style={{maxHeight: '100%', width: '80%', overflow: 'visible'}}>
                     <div className="modal-content">
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="nome" value={this.state.nome} onChange={(e) => this.handleChangeNome(e)} type="text" className="validate" />
-                                <label htmlFor="nome">Nome</label>
+                                <input id="nomeRegistro" value={this.state.nome} onChange={(e) => this.handleChangeNome(e)} type="text" className="validate" />
+                                <label htmlFor="nomeRegistro">Nome</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="email" value={this.state.email} onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
-                                <label htmlFor="email">E-mail</label>
+                                <input id="emailRegistro" value={this.state.email} onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
+                                <label htmlFor="emailRegistro">E-mail</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="password" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" className="validate" />
-                                <label htmlFor="password">Password</label>
+                                <input id="passwordRegistro" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" minlength="8" className="validate" />
+                                <label htmlFor="passwordRegistro">Password</label>
+                                <span class="helper-text" data-error="8 caracteres ou mais"></span>
+
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="password" value={this.state.pvalidation} onChange={(e) => this.handleChangePasswordValidation(e)} type="password" className="validate" />
-                                <label htmlFor="password">Password</label>
+                                <input id="passwordConfirmationRegistro" value={this.state.pvalidation} onChange={(e) => this.handleChangePasswordValidation(e)} onBlur={(e) => this.handleChangePasswordValidation(e)} type="password" className={this.objComputed.classeConfirmacaoSenha} />
+                                <label htmlFor="passwordConfirmationRegistro">Password Confirmation</label>
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <a href="#!" onClick={(e) => this.fazerLogin(e)} className="waves-effect waves-green btn-flat">Login</a>
+                            <a href="#!" onClick={(e) => this.registrar(e)} className={this.objComputed.classesBtnSubmit}>Registrar</a>
                         </div>
                         {this.state.loading ? (<div className="progress"><div className="indeterminate"></div></div>) : null}
                     </div>

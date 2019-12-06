@@ -6,6 +6,7 @@ import M from 'materialize-css'
 import '../../../suporte/icons.css'
 import ModalLogin from '../../login/login'
 import ModalLogout from '../../logout/logout'
+import ModalRegistro from '../../registro/registro'
 
 
 class TopNavBar extends Component {
@@ -14,8 +15,13 @@ class TopNavBar extends Component {
             const elems = document.querySelectorAll('.sidenav');
             M.Sidenav.init(elems, {});
         });
-        
     }
+
+    abreModalRegistro(e){
+        e.preventDefault()
+        this.childAbreModalRegistro()
+    }
+
 
     abreModalLogin(e){
         e.preventDefault()
@@ -35,7 +41,7 @@ class TopNavBar extends Component {
                         <a href="#" className="brand-logo">Stock Management</a>
                         <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.props.logado != true ? <li><a>Registrar</a></li> : null }
+                            {this.props.logado != true ? <li><a onClick={(e) => this.abreModalRegistro(e) }>Registrar</a></li> : null }
                             {this.props.logado != true ? <li><a onClick={(e) => this.abreModalLogin(e) }>Login</a></li> : <li><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></li> }
                                         
                         </ul>
@@ -46,6 +52,7 @@ class TopNavBar extends Component {
                 </ul>
                 <ModalLogin setAbreModal={f => this.childAbreModalLogin = f}/>
                 <ModalLogout setAbreModal={f => this.childAbreModalLogout = f} />
+                <ModalRegistro setAbreModal={f => this.childAbreModalRegistro = f} />
             </div>
     
         )
