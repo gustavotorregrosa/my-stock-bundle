@@ -8,58 +8,81 @@ import ModalLogin from '../../login/login'
 import ModalLogout from '../../logout/logout'
 import ModalRegistro from '../../registro/registro'
 
-
 class TopNavBar extends Component {
-    componentDidMount(){
-        document.addEventListener('DOMContentLoaded', function () {
-            const elems = document.querySelectorAll('.sidenav');
-            M.Sidenav.init(elems, {});
-        });
+
+
+    componentDidMount() {
+        this.ativaSideNav()
     }
 
-    abreModalRegistro(e){
+    constructor(props) {
+        super(props)
+        this.elem = null
+        this.instancia = null
+    }
+
+
+    ativaSideNav = () => {
+        if (this.instancia) {
+            this.instancia.destroy()
+        }
+        this.elems = document.getElementById('minhasidenav')
+        M.Sidenav.init(this.elems, {});
+        this.instancia = M.Sidenav.getInstance(this.elems)
+    }
+
+    abreModalRegistro(e) {
         e.preventDefault()
         this.childAbreModalRegistro()
     }
 
 
-    abreModalLogin(e){
+    abreModalLogin(e) {
         e.preventDefault()
         this.childAbreModalLogin()
     }
 
-    abreModalLogout(e){
+    abreModalLogout(e) {
         e.preventDefault()
         this.childAbreModalLogout()
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <nav className="black">
                     <div className="nav-wrapper">
                         <a href="#" className="brand-logo">Stock Management</a>
-                        <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                        <a href="#" onClick={(e) => this.instancia.open()} className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            {this.props.logado != true ? <li><a onClick={(e) => this.abreModalRegistro(e) }>Registrar</a></li> : null }
-                            {this.props.logado != true ? <li><a onClick={(e) => this.abreModalLogin(e) }>Login</a></li> : <li><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></li> }
-                                        
+                            {this.props.logado != true ? <li><a href="#" onClick={(e) => this.abreModalRegistro(e)}>Registrar</a></li> : null}
+                            {this.props.logado != true ? <li><a href="#" onClick={(e) => this.abreModalLogin(e)}>Login</a></li> : <li><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>}
                         </ul>
                     </div>
                 </nav>
-                <ul className="sidenav" id="mobile-demo">
-                    {this.props.logado != true ? <li><a>Login</a></li> : <li><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>}
+                <ul className="sidenav" id="minhasidenav">
+                    {this.props.logado != true ? <li><a href="#">Login</a></li> : <li><a href="#" onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>}
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <li><div className="divider"></div></li>
+                    <li><a href="#" onClick={(e) => this.instancia.close()} >Fechar</a></li>
                 </ul>
-                <ModalLogin setAbreModal={f => this.childAbreModalLogin = f}/>
+                <ModalLogin setAbreModal={f => this.childAbreModalLogin = f} />
                 <ModalLogout setAbreModal={f => this.childAbreModalLogout = f} />
                 <ModalRegistro setAbreModal={f => this.childAbreModalRegistro = f} />
             </div>
-    
+
         )
     }
 
 
-}  
+}
 
 const mapStateToProps = state => {
     return {
