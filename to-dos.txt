@@ -16,3 +16,13 @@ cadastro de produtos (com fotos)
 movimentacoes
 
 
+
+criar sidebar admin com componentes comuns
+na sidebar admin, deixar o menu sempre exposto
+
+criar subrota no "admin" para "categorias"
+
+crud categorias com busca
+
+fixar valores nos campos de login
+
