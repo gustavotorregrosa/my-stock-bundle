@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import NavBar from '../topNavBar/topNavBar'
 import { connect } from 'react-redux'
+import TelaCategorias from '../../categorias/telaCategorias'
 
 class TelaAdmin extends Component {
 
@@ -10,7 +11,16 @@ class TelaAdmin extends Component {
         }
     }
 
+    getSegundoParam = () => {
+        let pathname = this.props.history.location.pathname
+        let pathnameArr = pathname.split("/")
+        console.log(pathnameArr)
+
+    }
+
     render(){
+        // console.log(this.props.history.location.pathname)
+        this.getSegundoParam()
         return (
             <div>
                 <NavBar/>
