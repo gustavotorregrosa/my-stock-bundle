@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import NavItem from '../../NavItem/navItem'
+// import NavItem from '../../NavItem/navItem'
 import { connect } from 'react-redux'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import '../../../suporte/icons.css'
-import ModalLogin from '../../login/login'
-import ModalLogout from '../../logout/logout'
-import ModalRegistro from '../../registro/registro'
+import ModalLogin from '../login/login'
+import ModalRegistro from '../registro/registro'
 
 class TopNavBar extends Component {
 
@@ -56,12 +55,12 @@ class TopNavBar extends Component {
                         <a href="#" onClick={(e) => this.instancia.open()} className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             {this.props.logado != true ? <li><a href="#" onClick={(e) => this.abreModalRegistro(e)}>Registrar</a></li> : null}
-                            {this.props.logado != true ? <li><a href="#" onClick={(e) => this.abreModalLogin(e)}>Login</a></li> : <li><a onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>}
+                            {this.props.logado != true ? <li><a href="#" onClick={(e) => this.abreModalLogin(e)}>Login</a></li> : null}
                         </ul>
                     </div>
                 </nav>
                 <ul className="sidenav" id="minhasidenav">
-                    {this.props.logado != true ? <li><a href="#">Login</a></li> : <li><a href="#" onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>}
+                    {this.props.logado != true ? <li><a href="#">Login</a></li> : null}
                     <br/>
                     <br/>
                     <br/>
@@ -74,7 +73,6 @@ class TopNavBar extends Component {
                     <li><a href="#" onClick={(e) => this.instancia.close()} >Fechar</a></li>
                 </ul>
                 <ModalLogin setAbreModal={f => this.childAbreModalLogin = f} />
-                <ModalLogout setAbreModal={f => this.childAbreModalLogout = f} />
                 <ModalRegistro setAbreModal={f => this.childAbreModalRegistro = f} />
             </div>
 

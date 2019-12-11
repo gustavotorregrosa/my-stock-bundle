@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Logo from '../logo/logo'
-import NavBar from './topNavBar/topNavBar'
-import estilizar from '../../../hoc/efeitos/aplicaEstilos'
+import NavBar from './topNavBarInicial/topNavBarInicial'
+import estilizar from '../../hoc/efeitos/aplicaEstilos'
 import { connect } from 'react-redux'
 
 

@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
-import TelaInicial from './components/UI/telaInicial/telaInicial'
-import TelaRedirect from './components/UI/redirect/redirect'
-import TelaAdmin from './components/UI/telaInicial/admin/telaAdmin'
+import TelaInicial from './components/telaInicial/telaInicial'
+// import TelaRedirect from './components/redirect/redirect'
+import TelaAdmin from './components/admin/telaAdmin'
 import * as actions from './store/actions/index'
 import asyncComponent from './hoc/asyncComponent/asyncComponent'
 import { connect } from 'react-redux'
 
 
-const asyncLogin = asyncComponent(() => {
-  return import('./components/UI/login/login')
-})
+// const asyncLogin = asyncComponent(() => {
+//   return import('./components/telaInicial/login/login')
+// })
 
 class App extends Component {
   rotas = (

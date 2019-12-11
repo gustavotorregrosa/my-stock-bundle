@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import NavBar from '../topNavBar/topNavBar'
+import NavBar from '../telaInicial/topNavBarInicial/topNavBarInicial'
 import { connect } from 'react-redux'
-import TelaCategorias from '../../categorias/telaCategorias'
+import TelaCategorias from '../telaAdmin/categorias/telaCategorias'
 
 class TelaAdmin extends Component {
 

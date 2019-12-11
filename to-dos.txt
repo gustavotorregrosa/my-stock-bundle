@@ -26,3 +26,5 @@ crud categorias com busca
 
 fixar valores nos campos de login
 
+como as navBar serao diferentes, elas nao vai ter q gerenciar estado (logado/ou nao)
+
