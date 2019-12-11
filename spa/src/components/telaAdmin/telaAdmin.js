@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import NavBar from '../telaInicial/topNavBarInicial/topNavBarInicial'
+import NavBar from './topNavBarAdmin/topNavBarAdmin'
 import { connect } from 'react-redux'
 import TelaCategorias from './categorias/telaCategorias'
 
@@ -24,7 +24,7 @@ class TelaAdmin extends Component {
         return (
             <div>
                 <NavBar/>
-                <h2>Tela de admin</h2>
+                <h2>Tela de admin ola 123</h2>
             </div>
         )
     }

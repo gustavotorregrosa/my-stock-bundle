@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import '../../../suporte/icons.css'
-import ModalLogin from '../login/login'
-import ModalRegistro from '../registro/registro'
+import ModalLogout from '../logout/logout'
 
 class TopNavBar extends Component {
 
@@ -26,34 +25,25 @@ class TopNavBar extends Component {
         this.instancia = M.Sidenav.getInstance(this.elems)
     }
 
-    abreModalRegistro(e) {
+    abreModalLogout(e) {
         e.preventDefault()
-        this.childAbreModalRegistro()
+        this.childAbreModalLogout()
     }
-
-
-    abreModalLogin(e) {
-        e.preventDefault()
-        this.childAbreModalLogin()
-    }
-
 
     render() {
         return (
             <div>
                 <nav className="black">
                     <div className="nav-wrapper">
-                        <a href="#" className="brand-logo">Stock Management</a>
-                        <a href="#" onClick={(e) => this.instancia.open()} className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                        <a href="#" className="brand-logo">Stock Management 2</a>
+                        <a href="#" onClick={(e) => this.instancia.open()} className="sidenav-trigger show-on-large"><i className="material-icons">menu</i></a>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><a href="#" onClick={(e) => this.abreModalRegistro(e)}>Registrar</a></li>
-                            <li><a href="#" onClick={(e) => this.abreModalLogin(e)}>Login</a></li>
+                            <li><a href="#" onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>
                         </ul>
                     </div>
                 </nav>
                 <ul className="sidenav" id="minhasidenav">
-                    <li><a href="#" onClick={(e) => this.abreModalRegistro(e)}>Registrar</a></li>
-                    <li><a href="#" onClick={(e) => this.abreModalLogin(e)}>Login</a></li>
+                    <li><a href="#" onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>
                     <br />
                     <br />
                     <br />
@@ -63,8 +53,7 @@ class TopNavBar extends Component {
                     <li><div className="divider"></div></li>
                     <li><a href="#" onClick={(e) => this.instancia.close()} >Fechar</a></li>
                 </ul>
-                <ModalLogin setAbreModal={f => this.childAbreModalLogin = f} />
-                <ModalRegistro setAbreModal={f => this.childAbreModalRegistro = f} />
+                <ModalLogout setAbreModal={f => this.childAbreModalLogout = f} />
             </div>
 
         )

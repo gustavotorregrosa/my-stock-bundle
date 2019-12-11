@@ -132,7 +132,6 @@ class ModalRegistro extends Component {
 
 
     render() {
-        // let objComputed = this.computed()
         return (
             <div>
                 <div id="modal3" className="modal" style={{maxHeight: '100%', width: '80%', overflow: 'visible'}}>
@@ -151,9 +150,9 @@ class ModalRegistro extends Component {
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="passwordRegistro" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" minlength="8" className="validate" />
+                                <input id="passwordRegistro" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" minLength="8" className="validate" />
                                 <label htmlFor="passwordRegistro">Password</label>
-                                <span class="helper-text" data-error="8 caracteres ou mais"></span>
+                                <span className="helper-text" data-error="8 caracteres ou mais"></span>
 
                             </div>
                         </div>
