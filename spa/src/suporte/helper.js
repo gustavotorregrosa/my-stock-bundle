@@ -1,1 +1,1 @@
-export const url = 'http://stockmanager.test/api/'
+export const url = 'http://stock-manager.test/api/'
