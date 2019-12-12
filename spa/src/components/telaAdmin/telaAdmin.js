@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import NavBar from './topNavBarAdmin/topNavBarAdmin'
 import { connect } from 'react-redux'
 import TelaCategorias from './categorias/telaCategorias'
-import { getComponent } from '../../suporte/helper'
 
 class TelaAdmin extends Component {
     componentDidUpdate() {
@@ -11,16 +11,13 @@ class TelaAdmin extends Component {
         }
     }
 
-    opcoesComponentes = {
-        categorias: "TelaCategorias"
-    }
-
     render() {
         return (
             <div>
                 <NavBar />
-                <h2>Tela de admin ola 123</h2>
-                {getComponent(2)}
+                <h2>Tela de admin</h2>
+                <Route path='/admin/categorias' component={TelaCategorias} />
+
             </div>
         )
     }
