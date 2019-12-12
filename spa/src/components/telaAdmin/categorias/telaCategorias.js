@@ -6,8 +6,7 @@ class TelaCategorias extends Component {
             <div>
                 <h2>Tela Categorias</h2>
             </div>
-        )
-        
+        )     
     }
 }
 

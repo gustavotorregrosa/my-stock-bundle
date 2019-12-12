@@ -12,7 +12,6 @@ class ModalLogin extends Component {
         this.elem = null
         this.instance = null
         this.abrirModal = this.abrirModal.bind(this)
-       
     }
 
     state = {
@@ -20,7 +19,6 @@ class ModalLogin extends Component {
         email: '',
         password: ''
     }
-
 
     componentDidMount() {
         this.elem = document.getElementById('modal1')
@@ -33,7 +31,6 @@ class ModalLogin extends Component {
 
         })
         this.props.setAbreModal(this.abrirModal)
-
     }
 
     abrirModal = () => {
@@ -66,9 +63,10 @@ class ModalLogin extends Component {
             if(status == 200){
                 localStorage.setItem("usuario", JSON.stringify(data.usuario))
                 localStorage.setItem("jwt", data.jwt)
+                this.fechaModal()
                 this.props.verificaLoginLocalStorage()
             } 
-            this.fechaModal()
+            
             M.toast({html: data.mensagem})
         })
     }

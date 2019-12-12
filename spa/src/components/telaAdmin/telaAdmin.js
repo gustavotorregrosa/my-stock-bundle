@@ -2,29 +2,25 @@ import React, { Component } from 'react'
 import NavBar from './topNavBarAdmin/topNavBarAdmin'
 import { connect } from 'react-redux'
 import TelaCategorias from './categorias/telaCategorias'
+import { getComponent } from '../../suporte/helper'
 
 class TelaAdmin extends Component {
-
     componentDidUpdate() {
         if (this.props.logado === false) {
             this.props.history.push('/')
         }
     }
 
-    getSegundoParam = () => {
-        let pathname = this.props.history.location.pathname
-        let pathnameArr = pathname.split("/")
-        let segundoParam = pathnameArr[2] ? pathnameArr[2] : null
-        return segundoParam
+    opcoesComponentes = {
+        categorias: "TelaCategorias"
     }
 
     render() {
-        // console.log(this.props.history.location.pathname)
-        this.getSegundoParam()
         return (
             <div>
                 <NavBar />
                 <h2>Tela de admin ola 123</h2>
+                {getComponent(2)}
             </div>
         )
     }

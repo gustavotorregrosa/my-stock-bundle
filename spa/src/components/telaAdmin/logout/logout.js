@@ -50,8 +50,8 @@ class ModalLogin extends Component {
             this.setState({
                 loading: false
             })
-            this.props.verificaLoginLocalStorage()
             this.fechaModal()
+            this.props.verificaLoginLocalStorage()
             M.toast({html: 'Logout realizado com sucesso'})
         }, 2000)
 
