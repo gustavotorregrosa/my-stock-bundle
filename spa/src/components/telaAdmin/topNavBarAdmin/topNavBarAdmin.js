@@ -3,6 +3,8 @@ import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css'
 import '../../../suporte/icons.css'
 import ModalLogout from '../logout/logout'
+import { NavLink } from 'react-router-dom'
+import estilos from './estilos.module.css'
 
 class TopNavBar extends Component {
 
@@ -43,7 +45,7 @@ class TopNavBar extends Component {
                     </div>
                 </nav>
                 <ul className="sidenav" id="minhasidenav">
-                    <li><a href="#" onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>
+                    <NavLink activeClassName={estilos.active} onClick={(e) => this.instancia.close()} to="/admin/categorias"><li><a href="#">Categorias</a></li></NavLink>
                     <br />
                     <br />
                     <br />
@@ -51,6 +53,7 @@ class TopNavBar extends Component {
                     <br />
                     <br />
                     <li><div className="divider"></div></li>
+                    <li><a href="#" onClick={(e) => this.abreModalLogout(e)}>Logout</a></li>
                     <li><a href="#" onClick={(e) => this.instancia.close()} >Fechar</a></li>
                 </ul>
                 <ModalLogout setAbreModal={f => this.childAbreModalLogout = f} />

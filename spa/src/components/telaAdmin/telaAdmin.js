@@ -14,9 +14,12 @@ class TelaAdmin extends Component {
     render() {
         return (
             <div>
-                <NavBar />
-                <h2>Tela de admin</h2>
-                <Route path='/admin/categorias' component={TelaCategorias} />
+                <NavBar />                
+                <Switch>
+                    <Route path='/admin/categorias' component={TelaCategorias} />
+                    <Redirect from="/admin/*" to="/admin" />
+                </Switch>
+                
 
             </div>
         )

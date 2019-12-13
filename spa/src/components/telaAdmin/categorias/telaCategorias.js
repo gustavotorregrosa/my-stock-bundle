@@ -4,7 +4,7 @@ class TelaCategorias extends Component {
     render(){
         return (
             <div>
-                <h2>Tela Categorias</h2>
+                <h6>Categorias</h6>
             </div>
         )     
     }
