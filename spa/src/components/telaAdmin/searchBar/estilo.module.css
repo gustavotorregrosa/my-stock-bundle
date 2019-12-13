@@ -1,8 +1,16 @@
-.searchbar {
+/* .searchbar {
     padding: 0.5em;
+    width: 10%;
+    float: right;
 }
 
 .searchbar input{
     border: none !important;
     box-shadow: none !important;
+    background-color: "green";
+    display: inline;
+} */
+
+.quadroinput input{
+    background-color: red !important;
 }
