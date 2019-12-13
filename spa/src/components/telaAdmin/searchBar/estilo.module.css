@@ -1,0 +1,8 @@
+.searchbar {
+    padding: 0.5em;
+}
+
+.searchbar input{
+    border: none !important;
+    box-shadow: none !important;
+}
