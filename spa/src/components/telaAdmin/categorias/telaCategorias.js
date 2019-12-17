@@ -8,8 +8,8 @@ class TelaCategorias extends Component {
                 <br />
                 <br />
                 <div className="row">
-                    <div className="col s3"><h5>Categorias</h5></div>
-                    <div className="col s9">
+                    <div className="col s6"><h5>Categorias</h5></div>
+                    <div className="col s6">
                         <SearchBar/>
                     </div>
                 </div>

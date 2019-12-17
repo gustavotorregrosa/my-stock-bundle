@@ -2,23 +2,26 @@ import React, { Component } from 'react'
 import estilo from './estilo.module.css'
 
 class SearchBar extends Component {
-    render(){
-        return(
+
+    state = {
+        texto: null
+    }
+
+    mudaTextoBusca = (e) => {
+        let texto = e.target.value
+        
+    }
+
+    render() {
+        let listaClasses = ['card', estilo.quadroinput].join(' ')
+        return (
             <div>
-                <div className={['card row', estilo.searchbar].join(' ')}>
-                    <div className={['col s11', estilo.quandroinput].join(' ')} >
-                        <input type="text" /> 
-                    </div>
-                    <div className="col s1">
-                        <i class="material-icons">search</i>
-                    </div>
-                   
-                    
+                <div className={listaClasses} >
+                    <input onChange={(e) => this.mudaTextoBusca(e)} id="inp-busca" type="text" placeholder="Busca"/>
                 </div>
             </div>
         )
     }
-
 }
 
 export default SearchBar
