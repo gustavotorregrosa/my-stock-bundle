@@ -4,16 +4,28 @@ import estilo from './estilo.module.css'
 class SearchBar extends Component {
 
     state = {
-        texto: null
+        texto: null,
+        ativaCor: false
     }
 
     mudaTextoBusca = (e) => {
         let texto = e.target.value
-        
+        let ativaCor = texto != ""
+        this.setState({
+            texto,
+            ativaCor
+        })
     }
 
+
+    
+
     render() {
-        let listaClasses = ['card', estilo.quadroinput].join(' ')
+        let listaClasses = ['card', estilo.quadroinput]
+        if(this.state.ativaCor){
+            listaClasses.push(estilo.ativo)
+        }
+        listaClasses = listaClasses.join(' ')
         return (
             <div>
                 <div className={listaClasses} >

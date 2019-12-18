@@ -2,15 +2,39 @@ import React, { Component } from 'react'
 import SearchBar from '../searchBar/searchBar'
 
 class TelaCategorias extends Component {
+
+
+    state = {
+        categorias: [
+            {
+                name: "Gustavo",
+                nameItem: "Developper",
+                price: "teste"
+            },
+            {
+                name: "Gustavo 2",
+                nameItem: "Developper",
+                price: "teste"
+            },
+
+        ]
+    }
+
     render() {
+        console.log(this.state.categorias)
         return (
             <div className="container">
                 <br />
                 <br />
                 <div className="row">
-                    <div className="col s6"><h5>Categorias</h5></div>
+                    <div className="col s5"><h5>Categorias</h5></div>
                     <div className="col s6">
-                        <SearchBar/>
+                        <SearchBar />
+                    </div>
+                    <div className="col s1">
+                        <a style={{
+                            marginTop: "1em"
+                        }} class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
                     </div>
                 </div>
                 <br />
