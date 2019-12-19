@@ -18,7 +18,9 @@ class SearchBar extends Component {
     }
 
 
-    
+    cpAlteraTexto = (t) => {
+        
+    }
 
     render() {
         let listaClasses = ['card', estilo.quadroinput]

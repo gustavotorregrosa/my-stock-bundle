@@ -1,27 +1,43 @@
 import React, { Component } from 'react'
 import SearchBar from '../searchBar/searchBar'
+import TabelaCategorias from './tabelaCategorias'
 
 class TelaCategorias extends Component {
-
 
     state = {
         categorias: [
             {
-                name: "Gustavo",
-                nameItem: "Developper",
-                price: "teste"
+                id: 1,
+                nome: "Ciclismo"
             },
             {
-                name: "Gustavo 2",
-                nameItem: "Developper",
-                price: "teste"
+                id: 2,
+                nome: "Culinaria"
             },
-
+            {
+                id: 3,
+                nome: "Livros"
+            },
+            {
+                id: 4,
+                nome: "Arte"
+            },
+            {
+                id: 5,
+                nome: "Musica"
+            },
         ]
     }
 
+    getCategorias = () => {
+        return this.state.categorias
+    }
+
+    getBusca = () => {
+        alert("ola mundo")
+    }
+
     render() {
-        console.log(this.state.categorias)
         return (
             <div className="container">
                 <br />
@@ -34,38 +50,12 @@ class TelaCategorias extends Component {
                     <div className="col s1">
                         <a style={{
                             marginTop: "1em"
-                        }} class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        }} className="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
                     </div>
                 </div>
                 <br />
                 <br />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Item Name</th>
-                            <th>Item Price</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>$7.00</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <TabelaCategorias categorias={this.getCategorias()} />
             </div>
         )
     }
