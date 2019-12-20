@@ -15,12 +15,12 @@ class SearchBar extends Component {
             texto,
             ativaCor
         })
+        this.props.informaTxtBusca(texto)
     }
 
 
-    cpAlteraTexto = (t) => {
-        
-    }
+
+
 
     render() {
         let listaClasses = ['card', estilo.quadroinput]
@@ -31,7 +31,7 @@ class SearchBar extends Component {
         return (
             <div>
                 <div className={listaClasses} >
-                    <input onChange={(e) => this.mudaTextoBusca(e)} id="inp-busca" type="text" placeholder="Busca"/>
+                    <input  onChange={(e) => this.mudaTextoBusca(e)} id="inp-busca" type="text" placeholder="Busca"/>
                 </div>
             </div>
         )
