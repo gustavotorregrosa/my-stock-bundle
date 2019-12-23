@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SearchBar from '../searchBar/searchBar'
 import TabelaCategorias from './tabelaCategorias'
+import ModalCriaCategoria from './modalNovaCategoria'
 
 class TelaCategorias extends Component {
 
@@ -48,10 +49,8 @@ class TelaCategorias extends Component {
 
     abreModalCriaCategoria = e => {
         e.preventDefault()
-        alert("ola mundo")
+        this.childAbreModalCriaCategoria()
     }
-
-
 
     render() {
         return (
@@ -74,6 +73,7 @@ class TelaCategorias extends Component {
                 <br />
                 <br />
                 <TabelaCategorias categorias={this.getCategorias()} />
+                <ModalCriaCategoria setAbreModal={f => this.childAbreModalCriaCategoria = f} />
             </div>
         )
     }
