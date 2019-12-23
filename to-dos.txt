@@ -15,6 +15,9 @@ cadastro de categorias (com icones?)
 cadastro de produtos (com fotos)
 movimentacoes
 
+fazer o modal de criar categorias
+colocar key nos itens-categorias
+salvar categoria
 
 
 criar sidebar admin com componentes comuns

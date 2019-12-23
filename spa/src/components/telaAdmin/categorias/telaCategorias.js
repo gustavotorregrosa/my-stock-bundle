@@ -46,6 +46,11 @@ class TelaCategorias extends Component {
         })
     }
 
+    abreModalCriaCategoria = e => {
+        e.preventDefault()
+        alert("ola mundo")
+    }
+
 
 
     render() {
@@ -59,7 +64,9 @@ class TelaCategorias extends Component {
                         <SearchBar informaTxtBusca={(t) => {this.alteraTextoBusca(t)} } />
                     </div>
                     <div className="col s1">
-                        <a style={{
+                        <a 
+                        onClick={e => this.abreModalCriaCategoria(e)}
+                        style={{
                             marginTop: "1em"
                         }} className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a>
                     </div>
