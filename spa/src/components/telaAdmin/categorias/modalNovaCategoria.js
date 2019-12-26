@@ -16,7 +16,8 @@ class NovaCategoria extends Component {
     }
 
     state = {
-        loading: false
+        loading: false,
+        categoria: null
     }
 
     componentDidMount() {
@@ -29,15 +30,30 @@ class NovaCategoria extends Component {
         this.instance.open()
     }
 
+    alterarTextoCategoria = (e) => {
+        let categoria = e.target.value
+        this.setState({
+            categoria
+        })
+    }
+
+    salvaCategoria = e => {
+        e.preventDefault()
+        
+
+    }
+
     render() {
         return (
             <div id="modal-nova-categoria" className="modal">
                 <div className="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
+                    <div className="input-field col s6">
+                        <input value={this.state.categoria} onChange={(e) => this.alterarTextoCategoria(e) } id="nova-categoria" type="text" className="validate" />
+                        <label htmlFor="nova-categoria">Nova Categoria</label>
+                    </div>
                 </div>
                 <div className="modal-footer">
-                    <a href="#!" className="modal-close waves-effect waves-green btn-flat">Agree</a>
+                    <a onClick={e => this.salvaCategoria(e)} href="#!" className="modal-close waves-effect waves-green btn-flat">Salvar</a>
                 </div>
             </div>
         )
