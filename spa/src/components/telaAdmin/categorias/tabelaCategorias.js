@@ -3,9 +3,12 @@ import React, { Component } from 'react'
 class TabelaCategorias extends Component {
 
     listaItens = () => {
-        let categorias = [...this.props.categorias]
-        let tbl = categorias.map(el => (<tr><td>{el.nome}</td><td></td></tr>))
-        return tbl
+        if(this.props.categorias){
+            let categorias = [...this.props.categorias]
+            let tbl = categorias.map(el => (<tr key={el.id}><td>{el.nome}</td><td></td></tr>))
+            return tbl
+        }
+        return null
     }
 
     render() {

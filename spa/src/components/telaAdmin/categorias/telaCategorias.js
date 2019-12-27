@@ -2,33 +2,33 @@ import React, { Component } from 'react'
 import SearchBar from '../searchBar/searchBar'
 import TabelaCategorias from './tabelaCategorias'
 import ModalCriaCategoria from './modalNovaCategoria'
+import * as helper from '../../../suporte/helper'
 
 class TelaCategorias extends Component {
 
     state = {
-        categorias: [
-            {
-                id: 1,
-                nome: "Ciclismo"
-            },
-            {
-                id: 2,
-                nome: "Culinaria"
-            },
-            {
-                id: 3,
-                nome: "Livros"
-            },
-            {
-                id: 4,
-                nome: "Arte"
-            },
-            {
-                id: 5,
-                nome: "Musica"
-            },
-        ],
+        categorias: null,
         textoBusca: null
+    }
+
+
+    listaCompletaCategorias = () => {
+        let myHeaders = new Headers
+        myHeaders.set("Content-Type", "application/json")
+        let opcoes = {
+            url: helper.url.concat('categorias/listar'),
+            method: 'get',
+            headers: myHeaders
+        }
+        fetch(opcoes.url, opcoes).then(resposta => resposta.json()).then(categorias => {
+            this.setState({
+                categorias
+            })           
+        })
+    }
+
+    componentDidMount(){
+        this.listaCompletaCategorias()
     }
 
     getCategorias = () => {
@@ -73,7 +73,7 @@ class TelaCategorias extends Component {
                 <br />
                 <br />
                 <TabelaCategorias categorias={this.getCategorias()} />
-                <ModalCriaCategoria setAbreModal={f => this.childAbreModalCriaCategoria = f} />
+                <ModalCriaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalCriaCategoria = f} />
             </div>
         )
     }

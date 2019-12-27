@@ -22,12 +22,21 @@ class NovaCategoria extends Component {
 
     componentDidMount() {
         this.elem = document.getElementById('modal-nova-categoria')
-        this.instance = M.Modal.init(this.elem, {})
+        this.instance = M.Modal.init(this.elem, {
+            onCloseEnd: () => this.setState({
+                loading: false,
+                categoria: null
+            })
+        })
         this.props.setAbreModal(this.abrirModal)
     }
 
     abrirModal = () => {
         this.instance.open()
+    }
+
+    fechaModal = () => {
+        this.instance.close()
     }
 
     alterarTextoCategoria = (e) => {
@@ -39,8 +48,32 @@ class NovaCategoria extends Component {
 
     salvaCategoria = e => {
         e.preventDefault()
-        
-
+        this.setState({
+            loading: true
+        })
+        let myHeaders = new Headers
+        myHeaders.set("Content-Type", "application/json")
+        let opcoes = {
+            url: helper.url.concat('categorias/salvar'),
+            method: 'post',
+            body: JSON.stringify({
+                nome: this.state.categoria
+            }),
+            headers: myHeaders
+        }
+        let status
+        setTimeout(() => {
+            fetch(opcoes.url, opcoes).then(resposta => {
+                status = resposta.status
+                return resposta.json()
+            }).then(data => {
+                if (status == (200 || 422)) {
+                    M.toast({ html: data.mensagem })
+                    this.fechaModal()
+                    this.props.listarCategorias()
+                }
+            })
+        }, 1000);
     }
 
     render() {
@@ -48,13 +81,14 @@ class NovaCategoria extends Component {
             <div id="modal-nova-categoria" className="modal">
                 <div className="modal-content">
                     <div className="input-field col s6">
-                        <input value={this.state.categoria} onChange={(e) => this.alterarTextoCategoria(e) } id="nova-categoria" type="text" className="validate" />
+                        <input value={this.state.categoria} onChange={(e) => this.alterarTextoCategoria(e)} id="nova-categoria" type="text" className="validate" />
                         <label htmlFor="nova-categoria">Nova Categoria</label>
                     </div>
                 </div>
                 <div className="modal-footer">
                     <a onClick={e => this.salvaCategoria(e)} href="#!" className="modal-close waves-effect waves-green btn-flat">Salvar</a>
                 </div>
+                {this.state.loading ? (<div className="progress"><div className="indeterminate"></div></div>) : null}
             </div>
         )
     }
