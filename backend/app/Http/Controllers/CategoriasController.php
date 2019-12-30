@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriasController extends Controller
 {
@@ -36,20 +37,19 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        $validacao = $request->validate([
-            'nome' => 'required|unique:categorias|max:255',
+        $validacao = Validator::make($request->all(), [
+            'nome' => 'required|unique:categorias',
         ]);
-
-        \Log::debug('ola mundo');
-        \Log::debug($validacao);
         
-
-
-
-        if($validacao && Categoria::create(['nome' => $request->nome ])){
-            return respostaCors([], 200, "Categoria ".$request->nome." adicionada");
+        if ($validacao->fails()) {
+            return respostaCors([], 422, "Nome de categoria invalido ou repetido");
         }
-        return respostaCors([], 422, "Nome de categoria invalido ou repetido");
+
+        Categoria::create([
+            'nome' => $request->nome
+        ]);
+        
+        return respostaCors([], 200, "Categoria " . $request->nome . " adicionada");
     }
 
     /**

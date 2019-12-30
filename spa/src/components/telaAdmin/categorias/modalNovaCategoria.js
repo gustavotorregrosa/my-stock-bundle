@@ -17,7 +17,7 @@ class NovaCategoria extends Component {
 
     state = {
         loading: false,
-        categoria: null
+        categoria: ""
     }
 
     componentDidMount() {
@@ -25,7 +25,7 @@ class NovaCategoria extends Component {
         this.instance = M.Modal.init(this.elem, {
             onCloseEnd: () => this.setState({
                 loading: false,
-                categoria: null
+                categoria: ""
             })
         })
         this.props.setAbreModal(this.abrirModal)
@@ -67,7 +67,7 @@ class NovaCategoria extends Component {
                 status = resposta.status
                 return resposta.json()
             }).then(data => {
-                if (status == (200 || 422)) {
+                if (status == 200 || status == 422) {
                     M.toast({ html: data.mensagem })
                     this.fechaModal()
                     this.props.listarCategorias()
@@ -86,9 +86,11 @@ class NovaCategoria extends Component {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <a onClick={e => this.salvaCategoria(e)} href="#!" className="modal-close waves-effect waves-green btn-flat">Salvar</a>
+                    <a onClick={e => this.salvaCategoria(e)} href="#" className="waves-effect waves-green btn-flat">Salvar</a>
+                    
                 </div>
                 {this.state.loading ? (<div className="progress"><div className="indeterminate"></div></div>) : null}
+
             </div>
         )
     }
