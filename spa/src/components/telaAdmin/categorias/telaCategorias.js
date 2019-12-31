@@ -4,6 +4,7 @@ import TabelaCategorias from './tabelaCategorias'
 import ModalCriaCategoria from './modalNovaCategoria'
 import ListaPaginacao from './listaPaginacao'
 import * as helper from '../../../suporte/helper'
+import * as fc from '../../../suporte/funcoes-customizadas'
 
 class TelaCategorias extends Component {
 
@@ -39,6 +40,9 @@ class TelaCategorias extends Component {
 
     componentDidMount() {
         this.listaCompletaCategorias()
+        setTimeout(() => {
+            fc.pegaJWT()
+        }, 3000)
     }
 
     getCategorias = () => {

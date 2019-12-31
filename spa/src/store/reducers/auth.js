@@ -36,7 +36,6 @@ const atualizaLoginLS = (state, action) => {
         }
     }
     return atualizaObjeto(state, objAtualiza)
-
 }
 
 const reducer = (state = initialState, action) => {
