@@ -1,4 +1,5 @@
 import store from '../store/store'
+import { verificaLoginLS } from '../store/actions/index'
 
 // export const pegaJWT = () => {
 //     let meuJWT = store.getState()
@@ -15,3 +16,10 @@ import store from '../store/store'
 
 // export const myFetch = ()
 
+const getJwt = () => {
+    store.getState().autenticacao.jwt
+}
+
+const atualizaJwtUsuario = () => {
+    store.dispach(verificaLoginLS())
+}
