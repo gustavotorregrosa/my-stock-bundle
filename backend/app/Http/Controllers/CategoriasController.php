@@ -29,6 +29,12 @@ class CategoriasController extends Controller
         //
     }
 
+    public function testemiddleware(Request $request){
+        $this->middleware('jwt');
+        return respostaCors([], 200, "Beleza...");
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -1,15 +1,15 @@
 import store from '../store/store'
 import { verificaLoginLS } from '../store/actions/index'
-import { appUrl } from './helper'
+import { url as appUrl } from './helper'
 
 const getJwt = () => {
-    store.getState().autenticacao.jwt
+    return store.getState().autenticacao.jwt
 }
 
 
 
-const atualizaJwtUsuario =  new Promise((success, reject) => {
-    store.dispach(verificaLoginLS())
+const atualizaJwtUsuario = new Promise((success, reject) => {
+    store.dispatch(verificaLoginLS())
     success()
 })
 
@@ -55,15 +55,17 @@ const pFetchGarantido = (url, opcoes) => new Promise((success, reject) => {
 })
 
 
-export const jwtFetch = (url, opcoes = null) => new Promise((success, reject) => {
-    pFetchGarantido(url, opcoes).then(r => {
-        if(r.status == 203){
-            let objUsuario = r.conteudo
-            localStorage.setItem('jwt', objUsuario.jwt)
-            localStorage.setItem('usuario', JSON.stringify(objUsuario.usuario))
-            atualizaJwtUsuario.then().geraRequest(url, opcoes).then(r => success(r.conteudo))
+export const jwtFetch = (url, opcoes = null) => {
+    return new Promise((success, reject) => {
+        pFetchGarantido(url, opcoes).then(r => {
+            if (r.status == 203) {
+                let objUsuario = r.conteudo
+                localStorage.setItem('jwt', objUsuario.jwt)
+                localStorage.setItem('usuario', JSON.stringify(objUsuario.usuario))
+                atualizaJwtUsuario.then().geraRequest(url, opcoes).then(r => success(r.conteudo))
 
-        }
-        success(r.conteudo)
+            }
+            success(r.conteudo)
+        })
     })
-})
+}

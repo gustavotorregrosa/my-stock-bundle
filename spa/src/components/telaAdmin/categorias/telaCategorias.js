@@ -4,7 +4,7 @@ import TabelaCategorias from './tabelaCategorias'
 import ModalCriaCategoria from './modalNovaCategoria'
 import ListaPaginacao from './listaPaginacao'
 import * as helper from '../../../suporte/helper'
-import * as fc from '../../../suporte/funcoes-customizadas'
+import { jwtFetch } from '../../../suporte/funcoes-customizadas'
 
 class TelaCategorias extends Component {
 
@@ -40,9 +40,6 @@ class TelaCategorias extends Component {
 
     componentDidMount() {
         this.listaCompletaCategorias()
-        setTimeout(() => {
-            fc.pegaJWT()
-        }, 3000)
     }
 
     getCategorias = () => {
@@ -85,6 +82,11 @@ class TelaCategorias extends Component {
         this.childAbreModalCriaCategoria()
     }
 
+    funcaoTeste = (e) => {
+        e.preventDefault()
+        jwtFetch("categorias/testarmiddleware").then(r => console.log(r))
+    }
+
     render() {
         return (
             <div className="container">
@@ -109,6 +111,7 @@ class TelaCategorias extends Component {
                         <ListaPaginacao pagina={this.state.pagina} alteraPagina={(p) => this.alteraPagina(p)} numItensPorPagina={this.numItensPorPagina} categorias={this.getCategorias()} />
                     </div>
                 </div>
+                <a onClick={e => this.funcaoTeste(e)} href="#" class="waves-effect waves-light btn">button</a>
                 <br />
                 <br />
                 <TabelaCategorias categorias={this.getCategoriasPaginadas()} />
