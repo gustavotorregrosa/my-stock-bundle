@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-// use App\Models\JWTValidator;
+use App\Models\JWTValidator;
 
 class CheckJWT
 {
@@ -17,18 +17,21 @@ class CheckJWT
 
     public function handle($request, Closure $next)
     {
-        \Log::debug('teste bateu aqui');
-        return respostaCors([], 301, "Beleza, porra!");
-        // $jwtValidator = new JWTValidator($request);
-        // if ($jwtValidator->isJwtValido()) {
-        //     \Auth::login($jwtValidator->objUsuario());
+        // \Log::debug('teste bateu aqui');
+        // return respostaCors([
+        //     'jwt' => 123,
+        //     'usuario' => 'Martinho da Vila'
+        // ], 203, "Novo JWT");
+        $jwtValidator = new JWTValidator($request);
+        if ($jwtValidator->isJwtValido()) {
+            \Auth::login($jwtValidator->objUsuario());
             
-        //     return $next($request);
-        // }
-        // if ($conteudoRefresh = $jwtValidator->refreshToken()) {
-        //     return respostaCors($conteudoRefresh, 203);
-        // }
-        // return respostaCors([], 301, "Login com senha");
+            return $next($request);
+        }
+        if ($conteudoRefresh = $jwtValidator->refreshToken()) {
+            return respostaCors($conteudoRefresh, 203);
+        }
+        return respostaCors([], 301, "Login com senha");
     }
 
 

@@ -84,7 +84,10 @@ class TelaCategorias extends Component {
 
     funcaoTeste = (e) => {
         e.preventDefault()
-        jwtFetch("categorias/testarmiddleware").then(r => console.log(r))
+        jwtFetch("categorias/testarmiddleware").then(r => {
+           
+            console.log(r)
+        })
     }
 
     render() {

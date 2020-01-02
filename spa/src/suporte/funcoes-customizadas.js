@@ -8,10 +8,12 @@ const getJwt = () => {
 
 
 
-const atualizaJwtUsuario = new Promise((success, reject) => {
-    store.dispatch(verificaLoginLS())
-    success()
-})
+const atualizaJwtUsuario = () => {
+    return new Promise((success, reject) => {
+        store.dispatch(() => verificaLoginLS())
+        success()
+    })
+}
 
 const geraRequest = (rota, obj = null, method = "post") => {
     if (obj === null) {
@@ -62,10 +64,11 @@ export const jwtFetch = (url, opcoes = null) => {
                 let objUsuario = r.conteudo
                 localStorage.setItem('jwt', objUsuario.jwt)
                 localStorage.setItem('usuario', JSON.stringify(objUsuario.usuario))
-                atualizaJwtUsuario.then().geraRequest(url, opcoes).then(r => success(r.conteudo))
-
+                atualizaJwtUsuario().then(() => geraRequest(url, opcoes)).then(r => jwtFetchUnit(r)).then(r => r.conteudo).then(r => success(r))
+            } else {
+                success(r.conteudo)
             }
-            success(r.conteudo)
+
         })
     })
 }

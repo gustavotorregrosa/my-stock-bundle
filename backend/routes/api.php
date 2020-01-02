@@ -24,4 +24,4 @@ Route::post('/usuario/registrar', 'Auth\RegisterController@registrarUsuario');
 Route::get('/categorias/listar', 'CategoriasController@index');
 Route::post('/categorias/salvar', 'CategoriasController@store');
 
-Route::get('/categorias/testarmiddleware', 'CategoriasController@testemiddleware');
+Route::get('/categorias/testarmiddleware', 'CategoriasController@testemiddleware')->middleware('jwt');

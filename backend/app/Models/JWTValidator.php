@@ -83,6 +83,7 @@ class JWTValidator
             return false;
         }
 
+        
         if ($usuario = $this->usuarioDoBanco()) {
             return self::dadosUsuario($usuario);
         }
