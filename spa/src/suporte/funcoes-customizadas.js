@@ -3,14 +3,13 @@ import { verificaLoginLS } from '../store/actions/index'
 import { url as appUrl } from './helper'
 
 const getJwt = () => {
-    return store.getState().autenticacao.jwt
+    const jwt = store.getState().autenticacao.jwt
+    return jwt
 }
-
-
 
 const atualizaJwtUsuario = () => {
     return new Promise((success, reject) => {
-        store.dispatch(() => verificaLoginLS())
+        store.dispatch(verificaLoginLS())
         success()
     })
 }

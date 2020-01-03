@@ -17,17 +17,13 @@ class CheckJWT
 
     public function handle($request, Closure $next)
     {
-        // \Log::debug('teste bateu aqui');
-        // return respostaCors([
-        //     'jwt' => 123,
-        //     'usuario' => 'Martinho da Vila'
-        // ], 203, "Novo JWT");
         $jwtValidator = new JWTValidator($request);
         if ($jwtValidator->isJwtValido()) {
             \Auth::login($jwtValidator->objUsuario());
             
             return $next($request);
         }
+   
         if ($conteudoRefresh = $jwtValidator->refreshToken()) {
             return respostaCors($conteudoRefresh, 203);
         }

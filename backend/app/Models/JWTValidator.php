@@ -23,17 +23,20 @@ class JWTValidator
     }
 
 
-    public function isJwtValido($validade = 2)
+    public function isJwtValido($validade = 1)
     {
+       
         if(!$this->isStringJwt()){
             return false;
         }
 
+     
         $token = (new Parser())->parse((string) $this->jwt);
         $signer = new Sha256();
         $dataValidation = new ValidationData();
         if ($token->validate($dataValidation) && $token->verify($signer, env('APP_KEY'))) {
-            $validade *= 60 * 60;
+            // $validade *= 60 * 60;
+            $validade *= 30;
             if (($token->getClaim('iat') + $validade >= time()) && ($token->getClaim('iat') <= time())) {
                 return true;
             }
