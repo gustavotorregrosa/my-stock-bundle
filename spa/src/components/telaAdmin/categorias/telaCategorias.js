@@ -24,22 +24,33 @@ class TelaCategorias extends Component {
 
 
     listaCompletaCategorias = () => {
-        let myHeaders = new Headers
-        myHeaders.set("Content-Type", "application/json")
-        let opcoes = {
-            url: helper.url.concat('categorias/listar'),
-            method: 'get',
-            headers: myHeaders
-        }
-        fetch(opcoes.url, opcoes).then(resposta => resposta.json()).then(categorias => {
+        // let myHeaders = new Headers
+        // myHeaders.set("Content-Type", "application/json")
+        // let opcoes = {
+        //     url: helper.url.concat('categorias/listar'),
+        //     method: 'get',
+        //     headers: myHeaders
+        // }
+        // fetch(opcoes.url, opcoes).then(resposta => resposta.json()).then(categorias => {
+        //     this.setState({
+        //         categorias
+        //     })
+        // })
+
+        jwtFetch("categorias/listar").then(categorias => {
             this.setState({
                 categorias
             })
         })
+
+
+
     }
 
     componentDidMount() {
-        this.listaCompletaCategorias()
+        setTimeout(() => {
+            this.listaCompletaCategorias()
+        }, 100)
     }
 
     getCategorias = () => {
@@ -57,9 +68,8 @@ class TelaCategorias extends Component {
         let categorias = this.getCategorias()
         if (categorias) {
             categoriasF = categorias.filter((el, i) => {
-                let inicioEm = (pagina -1) * this.numItensPorPagina
-                let finalEm = pagina * this.numItensPorPagina -1
-               
+                let inicioEm = (pagina - 1) * this.numItensPorPagina
+                let finalEm = pagina * this.numItensPorPagina - 1
                 if ((i >= inicioEm) && (i <= finalEm)) {
                     return true
                 }
@@ -85,7 +95,6 @@ class TelaCategorias extends Component {
     funcaoTeste = (e) => {
         e.preventDefault()
         jwtFetch("categorias/testarmiddleware").then(r => {
-           
             console.log(r)
         })
     }

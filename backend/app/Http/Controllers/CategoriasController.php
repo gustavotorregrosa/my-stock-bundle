@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoriasController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('jwt');   
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +23,7 @@ class CategoriasController extends Controller
     {
         $categorias = Categoria::orderBy('nome')->get();
         return respostaCors($categorias, 200);
+        
     }
 
     /**

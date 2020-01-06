@@ -25,12 +25,10 @@ class JWTValidator
 
     public function isJwtValido($validade = 1)
     {
-       
         if(!$this->isStringJwt()){
             return false;
         }
 
-     
         $token = (new Parser())->parse((string) $this->jwt);
         $signer = new Sha256();
         $dataValidation = new ValidationData();
@@ -85,7 +83,6 @@ class JWTValidator
         if (!$this->isJwtValido($validade)) {
             return false;
         }
-
         
         if ($usuario = $this->usuarioDoBanco()) {
             return self::dadosUsuario($usuario);
@@ -100,7 +97,6 @@ class JWTValidator
                 'nome' => $usuario->name,
                 'email' => $usuario->email,
                 'perfil' => mapeiaPerfis($usuario)
-
             ],
             'jwt' => self::tokenUsuario($usuario)
         ];
