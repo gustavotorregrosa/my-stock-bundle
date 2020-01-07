@@ -31,6 +31,12 @@ class ModalLogin extends Component {
 
         })
         this.props.setAbreModal(this.abrirModal)
+
+        document.addEventListener('abreLogin', this.abrirModal)
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener('abreLogin', this.abrirModal)
     }
 
     abrirModal = () => {
@@ -113,9 +119,12 @@ class ModalLogin extends Component {
     }
 }
 
+
+
 const mapDispatchToProps = dispatch => {
     return {
-        verificaLoginLocalStorage: () => dispatch(actions.verificaLoginLS())
+        verificaLoginLocalStorage: () => dispatch(actions.verificaLoginLS()),
+        
     }
 }
 

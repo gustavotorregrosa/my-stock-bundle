@@ -1,6 +1,7 @@
 import store from '../store/store'
 import { verificaLoginLS } from '../store/actions/index'
 import { url as appUrl } from './helper'
+import M from 'materialize-css'
 
 const getJwt = () => {
     const jwt = store.getState().autenticacao.jwt
@@ -64,6 +65,19 @@ export const jwtFetch = (url, opcoes = null) => {
                 localStorage.setItem('jwt', objUsuario.jwt)
                 localStorage.setItem('usuario', JSON.stringify(objUsuario.usuario))
                 atualizaJwtUsuario().then(() => geraRequest(url, opcoes)).then(r => jwtFetchUnit(r)).then(r => r.conteudo).then(r => success(r))
+            } else if (r.status == 301){
+                M.toast({html: "Voce sera redirecionado para um novo login"})
+                localStorage.clear()
+                setTimeout(() => {
+                    store.dispatch(verificaLoginLS())
+                    setTimeout(() => {
+                       const e = new CustomEvent('abreLogin')
+                       document.dispatchEvent(e)
+
+                    }, 1000)
+                }, 500)
+                
+                
             } else {
                 success(r.conteudo)
             }
