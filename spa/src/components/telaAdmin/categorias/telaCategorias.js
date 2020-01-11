@@ -42,9 +42,6 @@ class TelaCategorias extends Component {
                 categorias
             })
         })
-
-
-
     }
 
     componentDidMount() {

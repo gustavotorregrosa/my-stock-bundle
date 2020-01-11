@@ -4,7 +4,7 @@ import M from 'materialize-css'
 import * as helper from '../../../suporte/helper'
 import { connect } from 'react-redux'
 import * as actions from '../../../store/actions/index'
-
+import { jwtFetch } from '../../../suporte/funcoes-customizadas'
 
 class NovaCategoria extends Component {
 
@@ -54,7 +54,7 @@ class NovaCategoria extends Component {
         let myHeaders = new Headers
         myHeaders.set("Content-Type", "application/json")
         let opcoes = {
-            url: helper.url.concat('categorias/salvar'),
+            url: 'categorias/salvar',
             method: 'post',
             body: JSON.stringify({
                 nome: this.state.categoria
@@ -63,16 +63,15 @@ class NovaCategoria extends Component {
         }
         let status
         setTimeout(() => {
-            fetch(opcoes.url, opcoes).then(resposta => {
-                status = resposta.status
-                return resposta.json()
-            }).then(data => {
-                if (status == 200 || status == 422) {
-                    M.toast({ html: data.mensagem })
-                    this.fechaModal()
-                    this.props.listarCategorias()
-                }
+            jwtFetch(opcoes.url, opcoes).then(r => {
+                M.toast({ html: r.mensagem })
+                this.fechaModal()
+                this.props.listarCategorias()
+            }).catch(r => {
+                M.toast({ html: r.conteudo.mensagem })
+                this.fechaModal()
             })
+
         }, 1000);
     }
 

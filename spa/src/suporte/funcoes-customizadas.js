@@ -29,7 +29,7 @@ const geraRequest = (rota, obj = null, method = "post") => {
     }
 
     if (method != "get") {
-        objRequest.body = JSON.stringify(obj)
+        objRequest.body = obj.body
     }
 
     return new Request(appUrl + rota, objRequest)
@@ -60,12 +60,13 @@ const pFetchGarantido = (url, opcoes) => new Promise((success, reject) => {
 export const jwtFetch = (url, opcoes = null) => {
     return new Promise((success, reject) => {
         pFetchGarantido(url, opcoes).then(r => {
-            if (r.status == 203) {
+            let status = r.status
+            if (status == 203) {
                 let objUsuario = r.conteudo
                 localStorage.setItem('jwt', objUsuario.jwt)
                 localStorage.setItem('usuario', JSON.stringify(objUsuario.usuario))
                 atualizaJwtUsuario().then(() => geraRequest(url, opcoes)).then(r => jwtFetchUnit(r)).then(r => r.conteudo).then(r => success(r))
-            } else if (r.status == 301){
+            } else if (status == 301){
                 M.toast({html: "Voce sera redirecionado para um novo login"})
                 localStorage.clear()
                 setTimeout(() => {
@@ -76,9 +77,12 @@ export const jwtFetch = (url, opcoes = null) => {
 
                     }, 1000)
                 }, 500)
-                
-                
-            } else {
+            } 
+            else if(status < 200 || status > 299 ) {
+
+                reject(r)
+            }
+            else {
                 success(r.conteudo)
             }
 
