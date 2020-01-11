@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchBar from '../searchBar/searchBar'
 import TabelaCategorias from './tabelaCategorias'
 import ModalCriaCategoria from './modalNovaCategoria'
+import ModalEditaCategoria from './modalEditaCategoria'
 import ListaPaginacao from './listaPaginacao'
 import * as helper from '../../../suporte/helper'
 import { jwtFetch } from '../../../suporte/funcoes-customizadas'
@@ -63,9 +64,9 @@ class TelaCategorias extends Component {
         return categoriasF
     }
 
-    abrirModalEdicao = (el) => {
-        alert("abriu modal: " + el.id)
-    }
+    // abrirModalEdicao = (el) => {
+    //     alert("abriu modal: " + el.id)
+    // }
 
     alteraTextoBusca = (t) => {
         let texto = t ? t : null
@@ -79,6 +80,12 @@ class TelaCategorias extends Component {
         e.preventDefault()
         this.childAbreModalCriaCategoria()
     }
+
+    abreModalEditaCategoria = cat => {
+        // e.preventDefault()
+        this.childAbreModalEditaCategoria(cat)
+    }
+
 
    
 
@@ -108,8 +115,9 @@ class TelaCategorias extends Component {
                 </div>
                 <br />
                 <br />
-                <TabelaCategorias editar={(el) => this.abrirModalEdicao(el)} categorias={this.getCategoriasPaginadas()} />
+                <TabelaCategorias editar={(el) => this.abreModalEditaCategoria(el)} categorias={this.getCategoriasPaginadas()} />
                 <ModalCriaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalCriaCategoria = f} />
+                <ModalEditaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalEditaCategoria = f} />
 
             </div>
         )

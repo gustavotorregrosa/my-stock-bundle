@@ -20,7 +20,6 @@ class TabelaCategorias extends Component {
     ativaEdicao = (e, el) => {
         e.preventDefault()
         this.props.editar(el)
-        // alert("editando: " + el.id)
     }
 
     render() {

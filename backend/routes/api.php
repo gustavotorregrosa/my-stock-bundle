@@ -23,5 +23,6 @@ Route::post('/usuario/registrar', 'Auth\RegisterController@registrarUsuario');
 
 Route::get('/categorias/listar', 'CategoriasController@index');
 Route::post('/categorias/salvar', 'CategoriasController@store');
+Route::post('/categorias/editar', 'CategoriasController@update');
 
 Route::get('/categorias/testarmiddleware', 'CategoriasController@testemiddleware')->middleware('jwt');

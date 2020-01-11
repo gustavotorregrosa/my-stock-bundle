@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,7 +12,7 @@ class CategoriasController extends Controller
 
     public function __construct()
     {
-        $this->middleware('jwt');   
+        $this->middleware('jwt');
     }
 
     /**
@@ -23,7 +24,6 @@ class CategoriasController extends Controller
     {
         $categorias = Categoria::orderBy('nome')->get();
         return respostaCors($categorias, 200);
-        
     }
 
     /**
@@ -36,10 +36,6 @@ class CategoriasController extends Controller
         //
     }
 
-    public function testemiddleware(Request $request){
-        return respostaCors([], 200, "Beleza...passou");
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -52,7 +48,7 @@ class CategoriasController extends Controller
         $validacao = Validator::make($request->all(), [
             'nome' => 'required|unique:categorias',
         ]);
-        
+
         if ($validacao->fails()) {
             return respostaCors([], 422, "Nome de categoria invalido ou repetido");
         }
@@ -60,7 +56,7 @@ class CategoriasController extends Controller
         Categoria::create([
             'nome' => $request->nome
         ]);
-        
+
         return respostaCors([], 200, "Categoria " . $request->nome . " adicionada");
     }
 
@@ -93,9 +89,38 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $id = $request->id;
+            $novoNome = $request->nome;
+            $categoria = Categoria::findOrFail($id);
+            $nomeAntigo = $categoria->nome;
+            if ($novoNome == $nomeAntigo) {
+                return respostaCors([], 202, "Nao houve mudanca no nome da categoria");
+            }
+
+            $validacao = Validator::make($request->all(), [
+                'nome' => 'required|unique:categorias',
+            ]);
+
+            if ($validacao->fails()) {
+                return respostaCors([], 422, "Nome de categoria invalido ou repetido");
+            }
+
+            $categoria->nome = $novoNome;
+            $categoria->save();
+            return respostaCors([], 200, "Categoria " . $nomeAntigo . " alterada para ".$novoNome);
+
+        } catch (Exception $e) {
+            return respostaCors([], $e->getCode(), "Excecao: ".$e->getMessage());
+            
+        }
+
+
+
+
+     
     }
 
     /**
