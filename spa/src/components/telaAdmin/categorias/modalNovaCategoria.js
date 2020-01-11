@@ -71,7 +71,6 @@ class NovaCategoria extends Component {
                 M.toast({ html: r.conteudo.mensagem })
                 this.fechaModal()
             })
-
         }, 1000);
     }
 

@@ -24,19 +24,6 @@ class TelaCategorias extends Component {
 
 
     listaCompletaCategorias = () => {
-        // let myHeaders = new Headers
-        // myHeaders.set("Content-Type", "application/json")
-        // let opcoes = {
-        //     url: helper.url.concat('categorias/listar'),
-        //     method: 'get',
-        //     headers: myHeaders
-        // }
-        // fetch(opcoes.url, opcoes).then(resposta => resposta.json()).then(categorias => {
-        //     this.setState({
-        //         categorias
-        //     })
-        // })
-
         jwtFetch("categorias/listar").then(categorias => {
             this.setState({
                 categorias
@@ -76,6 +63,10 @@ class TelaCategorias extends Component {
         return categoriasF
     }
 
+    abrirModalEdicao = (el) => {
+        alert("abriu modal: " + el.id)
+    }
+
     alteraTextoBusca = (t) => {
         let texto = t ? t : null
         this.setState({
@@ -89,12 +80,7 @@ class TelaCategorias extends Component {
         this.childAbreModalCriaCategoria()
     }
 
-    funcaoTeste = (e) => {
-        e.preventDefault()
-        jwtFetch("categorias/testarmiddleware").then(r => {
-            console.log(r)
-        })
-    }
+   
 
     render() {
         return (
@@ -120,10 +106,9 @@ class TelaCategorias extends Component {
                         <ListaPaginacao pagina={this.state.pagina} alteraPagina={(p) => this.alteraPagina(p)} numItensPorPagina={this.numItensPorPagina} categorias={this.getCategorias()} />
                     </div>
                 </div>
-                <a onClick={e => this.funcaoTeste(e)} href="#" class="waves-effect waves-light btn">button</a>
                 <br />
                 <br />
-                <TabelaCategorias categorias={this.getCategoriasPaginadas()} />
+                <TabelaCategorias editar={(el) => this.abrirModalEdicao(el)} categorias={this.getCategoriasPaginadas()} />
                 <ModalCriaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalCriaCategoria = f} />
 
             </div>
