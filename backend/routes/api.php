@@ -17,12 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post('/usuario/login', 'Auth\LoginController@loginComSenha');
 Route::post('/usuario/registrar', 'Auth\RegisterController@registrarUsuario');
-
 Route::get('/categorias/listar', 'CategoriasController@index');
 Route::post('/categorias/salvar', 'CategoriasController@store');
 Route::post('/categorias/editar', 'CategoriasController@update');
+Route::delete('/categorias/deletar/{id}', 'CategoriasController@delete');
 
-Route::get('/categorias/testarmiddleware', 'CategoriasController@testemiddleware')->middleware('jwt');

@@ -3,6 +3,7 @@ import SearchBar from '../searchBar/searchBar'
 import TabelaCategorias from './tabelaCategorias'
 import ModalCriaCategoria from './modalNovaCategoria'
 import ModalEditaCategoria from './modalEditaCategoria'
+import ModalDeletaCategoria from './modalDeletaCategoria'
 import ListaPaginacao from './listaPaginacao'
 import * as helper from '../../../suporte/helper'
 import { jwtFetch } from '../../../suporte/funcoes-customizadas'
@@ -86,6 +87,12 @@ class TelaCategorias extends Component {
         this.childAbreModalEditaCategoria(cat)
     }
 
+    abreModalDeletaCategoria = cat => {
+        // e.preventDefault()
+        this.childAbreModalDeletaCategoria(cat)
+    }
+
+
 
    
 
@@ -115,9 +122,10 @@ class TelaCategorias extends Component {
                 </div>
                 <br />
                 <br />
-                <TabelaCategorias editar={(el) => this.abreModalEditaCategoria(el)} categorias={this.getCategoriasPaginadas()} />
+                <TabelaCategorias deletar={(el) => this.abreModalDeletaCategoria(el)} editar={(el) => this.abreModalEditaCategoria(el)} categorias={this.getCategoriasPaginadas()} />
                 <ModalCriaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalCriaCategoria = f} />
                 <ModalEditaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalEditaCategoria = f} />
+                <ModalDeletaCategoria listarCategorias={() => this.listaCompletaCategorias()} setAbreModal={f => this.childAbreModalDeletaCategoria = f} />
 
             </div>
         )

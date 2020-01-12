@@ -129,8 +129,19 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        try {
+
+            $categoria = Categoria::findOrFail($id);
+            $nome = $categoria->nome;
+
+            $categoria->delete();
+            return respostaCors([], 200, "Categoria " . $nome . " deletada ");
+
+        } catch (Exception $e) {
+            return respostaCors([], $e->getCode(), "Excecao: ".$e->getMessage());
+            
+        }
     }
 }

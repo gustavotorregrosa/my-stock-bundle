@@ -15,10 +15,9 @@ const atualizaJwtUsuario = () => {
     })
 }
 
-const geraRequest = (rota, obj = null, method = "post") => {
-    if (obj === null) {
-        method = "get"
-    }
+const geraRequest = (rota, obj = null) => {
+    let method = obj ? obj.method : "get" 
+
     let h = new Headers()
     h.set("Content-Type", "application/json")
     h.set("jwt", getJwt())
