@@ -4,7 +4,7 @@ import TabelaCategorias from './tabelaCategorias'
 import ModalCriaCategoria from './modalNovaCategoria'
 import ModalEditaCategoria from './modalEditaCategoria'
 import ModalDeletaCategoria from './modalDeletaCategoria'
-import ListaPaginacao from './listaPaginacao'
+import ListaPaginacao from '../searchBar/listaPaginacao'
 import * as helper from '../../../suporte/helper'
 import { jwtFetch } from '../../../suporte/funcoes-customizadas'
 
@@ -117,7 +117,7 @@ class TelaCategorias extends Component {
 
                 <div className="row">
                     <div className="col s4 offset-s8">
-                        <ListaPaginacao pagina={this.state.pagina} alteraPagina={(p) => this.alteraPagina(p)} numItensPorPagina={this.numItensPorPagina} categorias={this.getCategorias()} />
+                        <ListaPaginacao pagina={this.state.pagina} alteraPagina={(p) => this.alteraPagina(p)} numItensPorPagina={this.numItensPorPagina} itens={this.getCategorias()} />
                     </div>
                 </div>
                 <br />

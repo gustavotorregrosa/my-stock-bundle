@@ -6,8 +6,8 @@ class ListaPaginacao extends Component {
     
     getNumPaginas = () => {
         let num = 0
-        if(this.props.categorias){
-            let numTotal = this.props.categorias.length
+        if(this.props.itens){
+            let numTotal = this.props.itens.length
             num = Math.ceil(numTotal / this.props.numItensPorPagina)
         }
         return num

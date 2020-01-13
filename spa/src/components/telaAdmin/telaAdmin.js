@@ -3,6 +3,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import NavBar from './topNavBarAdmin/topNavBarAdmin'
 import { connect } from 'react-redux'
 import TelaCategorias from './categorias/telaCategorias'
+import TelaProdutos from './produtos/telaProdutos'
 
 class TelaAdmin extends Component {
     componentDidUpdate() {
@@ -17,6 +18,7 @@ class TelaAdmin extends Component {
                 <NavBar />                
                 <Switch>
                     <Route path='/admin/categorias' component={TelaCategorias} />
+                    <Route path='/admin/produtos' component={TelaProdutos} />
                     <Redirect from="/admin/*" to="/admin" />
                 </Switch>
                 

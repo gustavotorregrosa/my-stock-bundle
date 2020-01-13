@@ -46,6 +46,7 @@ class TopNavBar extends Component {
                 </nav>
                 <ul className="sidenav" id="minhasidenav">
                     <NavLink activeClassName={estilos.active} onClick={(e) => this.instancia.close()} to="/admin/categorias"><li><a href="#">Categorias</a></li></NavLink>
+                    <NavLink activeClassName={estilos.active} onClick={(e) => this.instancia.close()} to="/admin/produtos"><li><a href="#">Produtos</a></li></NavLink>
                     <br />
                     <br />
                     <br />
