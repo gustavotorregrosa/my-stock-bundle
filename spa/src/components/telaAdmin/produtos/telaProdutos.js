@@ -3,11 +3,15 @@ import SearchBar from '../searchBar/searchBar'
 import ListaPaginacao from '../searchBar/listaPaginacao'
 import SelectCategorias from './selectCategorias'
 import TabelaProdutos from './tabelaProdutos'
+import ModalCriaProduto from './modalNovoProduto'
 
 class TelaProdutos extends Component {
 
 
-    
+    abreModalCriaProduto = e => {
+        e.preventDefault()
+        this.childAbreModalCriaProduto()
+    }
 
     render() {
         return (
@@ -39,6 +43,7 @@ class TelaProdutos extends Component {
                 <br />
                 <br />
                 <TabelaProdutos/>
+                <ModalCriaProduto setAbreModal={f => this.childAbreModalCriaProduto = f}/>
 
                 
 
