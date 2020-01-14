@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import SearchBar from '../searchBar/searchBar'
 import ListaPaginacao from '../searchBar/listaPaginacao'
 import SelectCategorias from './selectCategorias'
+import TabelaProdutos from './tabelaProdutos'
 
 class TelaProdutos extends Component {
+
+
+    
 
     render() {
         return (
@@ -17,7 +21,7 @@ class TelaProdutos extends Component {
                     </div>
                     <div className="col s1">
                         <a
-                            onClick={e => this.abreModalCriaCategoria(e)}
+                            onClick={e => this.abreModalCriaProduto(e)}
                             style={{
                                 marginTop: "1em"
                             }} className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a>
@@ -34,6 +38,7 @@ class TelaProdutos extends Component {
                 </div>
                 <br />
                 <br />
+                <TabelaProdutos/>
 
                 
 
