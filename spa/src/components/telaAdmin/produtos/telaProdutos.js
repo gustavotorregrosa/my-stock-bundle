@@ -7,6 +7,19 @@ import ModalCriaProduto from './modalNovoProduto'
 
 class TelaProdutos extends Component {
 
+    state = {
+        categorias: [
+            {
+                id: 1,
+                nome: "Gustavo"
+            },
+            {
+                id: 2,
+                nome: "Felipe"
+            }
+        ]
+    }
+
 
     abreModalCriaProduto = e => {
         e.preventDefault()
@@ -34,7 +47,7 @@ class TelaProdutos extends Component {
 
                 <div className="row">
                     <div className="col s4">
-                        <SelectCategorias/>
+                        <SelectCategorias categorias={this.state.categorias}/>
                     </div>
                     <div className="col s4 offset-s4">
                         <ListaPaginacao  />
