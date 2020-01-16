@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import estilos from './estilos.module.css'
 import M from 'materialize-css'
 import SelectCategorias from './selectCategorias'
+import {converteBase64, carregaImagem as customFileLoader} from '../../../suporte/funcoes-customizadas'
 
 class NovoProduto extends Component {
 
@@ -10,12 +11,12 @@ class NovoProduto extends Component {
         this.elem = null
         this.instance = null
         this.abrirModal = this.abrirModal.bind(this)
-
-
     }
 
     state = {
         loading: false,
+        travaSalvar: false,
+        imagem: null
 
     }
 
@@ -38,6 +39,15 @@ class NovoProduto extends Component {
     fechaModal = () => {
         this.instance.close()
     }
+
+    carregaArquivo = e => {
+        const img = e.target.files[0]
+        const quadro = document.getElementById("quadro-img")
+        customFileLoader(img, quadro)
+        converteBase64(img).then(imagem => this.setState({
+            imagem
+        }))
+    } 
 
 
     render() {
@@ -63,13 +73,20 @@ class NovoProduto extends Component {
                             <label htmlFor="icon_prefix2">Descricao</label>
                         </div>
                         <div className="input-field file-field col s6">
-                            <div className="btn">
-                                <span>File</span>
-                                <input type="file" />
+                            <div className="col s6">
+                                <img className="responsive-img" id="quadro-img"/>
                             </div>
-                            <div className="file-path-wrapper">
-                                <input className="file-path validate" type="text" placeholder="Upload one or more files" />
+                            <div className="col s6">
+                                <div className="btn">
+                                    <span>File</span>
+                                    <input onChange={e => this.carregaArquivo(e)} type="file" />
+                                </div>
+                                <div className="file-path-wrapper">
+                                    <input className="file-path validate" type="text" placeholder="Upload one or more files" />
+                                </div>
+
                             </div>
+
                         </div>
 
                     </div>
