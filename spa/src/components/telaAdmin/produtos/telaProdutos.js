@@ -4,20 +4,25 @@ import ListaPaginacao from '../searchBar/listaPaginacao'
 import SelectCategorias from './selectCategorias'
 import TabelaProdutos from './tabelaProdutos'
 import ModalCriaProduto from './modalNovoProduto'
+import { jwtFetch } from '../../../suporte/funcoes-customizadas'
+
 
 class TelaProdutos extends Component {
 
     state = {
-        categorias: [
-            {
-                id: 1,
-                nome: "Gustavo"
-            },
-            {
-                id: 2,
-                nome: "Felipe"
-            }
-        ]
+        categorias: []
+    }
+
+    componentDidMount() {
+        this.listaCompletaCategorias()
+    }
+
+    listaCompletaCategorias = () => {
+        jwtFetch("categorias/listar").then(categorias => {
+            this.setState({
+                categorias
+            })
+        })
     }
 
 
@@ -47,18 +52,18 @@ class TelaProdutos extends Component {
 
                 <div className="row">
                     <div className="col s4">
-                        <SelectCategorias categorias={this.state.categorias}/>
+                        <SelectCategorias categorias={this.state.categorias} />
                     </div>
                     <div className="col s4 offset-s4">
-                        <ListaPaginacao  />
+                        <ListaPaginacao />
                     </div>
                 </div>
                 <br />
                 <br />
-                <TabelaProdutos/>
-                <ModalCriaProduto setAbreModal={f => this.childAbreModalCriaProduto = f}/>
+                <TabelaProdutos />
+                <ModalCriaProduto categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaProduto = f} />
 
-                
+
 
 
             </div>

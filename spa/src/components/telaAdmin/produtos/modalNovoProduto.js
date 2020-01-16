@@ -50,7 +50,7 @@ class NovoProduto extends Component {
                             <label htmlFor="novo-produto">Novo Produto</label>
                         </div>
                         <div className="col s6">
-                            <SelectCategorias />
+                            <SelectCategorias categorias={this.props.categorias} />
                         </div>
 
                     </div>

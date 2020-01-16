@@ -3,7 +3,6 @@ import M from 'materialize-css'
 
 class SelectCategorias extends Component {
 
-
     componentDidMount() {
         this.instance = M.FormSelect.init(this.elem, {});
     }
@@ -21,6 +20,11 @@ class SelectCategorias extends Component {
 
     componentWillUnmount(){
         this.instance.destroy();
+    }
+
+    componentDidUpdate(){
+        this.instance.destroy();
+        this.instance = M.FormSelect.init(this.elem, {});
     }
 
     render() {
