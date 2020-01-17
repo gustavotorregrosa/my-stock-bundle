@@ -15,8 +15,9 @@ class NovoProduto extends Component {
 
     state = {
         loading: false,
-        travaSalvar: false,
-        imagem: null
+        imagem: null,
+        nome: "",
+        categoria: null
 
     }
 
@@ -50,17 +51,36 @@ class NovoProduto extends Component {
     } 
 
 
+    atualizaCategoria = categoria => {
+        this.setState({
+            categoria
+        })
+    }
+
+    salvarCategoria = e => {
+        e.preventDefault()
+        console.
+        log(this.state)
+    }
+
+    alteraNomeProduto = e => {
+        let nome = e.target.value
+        this.setState({
+            nome
+        })
+    }
+
     render() {
         return (
             <div id="modal-novo-produto" className={['modal', estilos.wide].join(' ')}>
                 <div className="modal-content">
                     <div className="row">
                         <div className="input-field col s6">
-                            <input id="novo-produto" type="text" className="validate" />
+                            <input onChange={e => this.alteraNomeProduto(e)} id="novo-produto" type="text" className="validate" />
                             <label htmlFor="novo-produto">Novo Produto</label>
                         </div>
                         <div className="col s6">
-                            <SelectCategorias categorias={this.props.categorias} />
+                            <SelectCategorias atualizaOpcao={(op) => this.atualizaCategoria(op)} categorias={this.props.categorias} />
                         </div>
 
                     </div>
@@ -92,7 +112,7 @@ class NovoProduto extends Component {
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <a href="#" className="waves-effect waves-green btn-flat">Salvar</a>
+                    <a href="#" onClick={e => this.salvarCategoria(e)} className="waves-effect waves-green btn-flat">Salvar</a>
 
                 </div>
                 {this.state.loading ? (<div className="progress"><div className="indeterminate"></div></div>) : null}
