@@ -3,7 +3,22 @@ import M from 'materialize-css'
 
 class SelectCategorias extends Component {
 
+    constructor(props){
+        super(props)
+        this.selecionarCategoriaImposta = this.selecionarCategoriaImposta.bind(this)
+    }
+
     componentDidMount() {
+        if(this.props.impoeCategoria){
+            this.props.impoeCategoria(this.selecionarCategoriaImposta)
+        }
+       
+        this.instance = M.FormSelect.init(this.elem, {})
+    }
+
+    selecionarCategoriaImposta(c){
+        this.instance.destroy()  
+        this.elem.value = c   
         this.instance = M.FormSelect.init(this.elem, {})
     }
 
