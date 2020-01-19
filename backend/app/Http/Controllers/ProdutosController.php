@@ -160,22 +160,26 @@ class ProdutosController extends Controller
         $produto->descricao = $request->descricao;
         $produto->categoria = $request->categoria;
 
-
-        $nomeImagemNovo = null;
+        // $nomeImagemNovo = null;
         if($imagem = $request->input('imagem')){
+            $nomeAntigo = $produto->imagem;
             $nomeImagemOriginal = $request->input('nomeImagem');
             $nomeImagemNovo = $this->salvarUnit($imagem, $nomeImagemOriginal);
+            $produto->imagem = $nomeImagemNovo;
+            @unlink($_SERVER["DOCUMENT_ROOT"]."/imagens/".$nomeAntigo);
         }
-        
-        // Produto::create([
-        //     'nome' => $request->nome,
-        //     'categoria' => $request->categoria,
-        //     'descricao' => $request->descricao,
-        //     'imagem' => $nomeImagemNovo
+        $produto->save();
+    
 
-        // ]);
+        return respostaCors([], 200, "Produto " . $request->nome . " alterado");
+    }
 
-        return respostaCors([], 200, "Produto " . $request->nome . " adicionado");
+    public function getImagem($imagem){
+        $img = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/imagens/".$imagem);
+        $img = base64_encode($img);
+        return respostaCors([
+            'imagem64' => $img
+        ], 200);
     }
 
     /**

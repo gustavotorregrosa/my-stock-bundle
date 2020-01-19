@@ -55,8 +55,6 @@ class CriaEditaProduto extends Component {
     abrirModal = (p = null) => {
         this.zerarElementos()
         this.setInitialState()
-        console.log("o produto passado eh")
-        console.log(p)
         this.instance.open()
         if (p) {
             this.inputNome.value = p.nome
@@ -67,11 +65,32 @@ class CriaEditaProduto extends Component {
             this.setState({
                 ...p
             })
-        }
-        setTimeout(() => {
-            console.log(this.state)
-        }, 2000)
+            this.exibeImagem(p.imagem)
 
+
+        }
+
+    }
+
+    getExtensaoMime = str => {
+        let extensao = str.split('.')[1]
+        if(extensao == "jpg"){
+            extensao = "jpeg"
+        }
+        return extensao
+    }
+    
+
+    exibeImagem = (nomeImagem = null) => {
+        if(nomeImagem){
+            jwtFetch("produtos/imagem/"+nomeImagem).then(r => {
+                let extensao = this.getExtensaoMime(nomeImagem)
+                const imagem = "data:image/"+extensao+";base64,"+r.imagem64
+                const quadro = document.getElementById("quadro-img")
+                quadro.src = imagem
+            })
+
+        }
 
     }
 
@@ -100,6 +119,8 @@ class CriaEditaProduto extends Component {
         })
     }
 
+
+
     salvarProduto = e => {
         e.preventDefault()
         this.setState({
@@ -119,7 +140,6 @@ class CriaEditaProduto extends Component {
             jwtFetch(opcoes.url, opcoes).then(r => {
                 M.toast({ html: r.mensagem })
                 this.fechaModal()
-                // this.props.listarCategorias()
             }).catch(r => {
                 M.toast({ html: r.conteudo.mensagem })
                 this.fechaModal()
