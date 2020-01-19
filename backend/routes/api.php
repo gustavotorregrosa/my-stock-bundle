@@ -25,5 +25,5 @@ Route::post('/categorias/editar', 'CategoriasController@update');
 Route::delete('/categorias/deletar/{id}', 'CategoriasController@delete');
 
 Route::get('/produtos/listar', 'ProdutosController@index');
-Route::post('/produtos/salvar', 'ProdutosController@store');
+Route::post('/produtos/salvar', 'ProdutosController@salvar');
 

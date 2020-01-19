@@ -3,7 +3,7 @@ import SearchBar from '../searchBar/searchBar'
 import ListaPaginacao from '../searchBar/listaPaginacao'
 import SelectCategorias from './selectCategorias'
 import TabelaProdutos from './tabelaProdutos'
-import ModalCriaProduto from './modalNovoProduto'
+import CriaEditaProduto from './modalCriaEditaProduto'
 import { jwtFetch } from '../../../suporte/funcoes-customizadas'
 
 
@@ -23,6 +23,11 @@ class TelaProdutos extends Component {
                 categorias
             })
         })
+    }
+
+    abreModalEditar = (el) => {
+        // console.log(el)
+        this.childAbreModalCriaProduto(el)
     }
 
 
@@ -60,12 +65,8 @@ class TelaProdutos extends Component {
                 </div>
                 <br />
                 <br />
-                <TabelaProdutos />
-                <ModalCriaProduto categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaProduto = f} />
-
-
-
-
+                <TabelaProdutos editar={(el) => this.abreModalEditar(el)} />
+                <CriaEditaProduto categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaProduto = f} />
             </div>
         )
     }

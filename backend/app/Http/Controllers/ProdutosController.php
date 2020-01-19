@@ -36,6 +36,16 @@ class ProdutosController extends Controller
         //
     }
 
+    public function salvar(Request $request){
+        if(is_null($request->id)){
+            return $this->store($request);
+        }
+        return $this->update($request);
+
+        
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -72,6 +82,8 @@ class ProdutosController extends Controller
         return $nome;
     }
 
+
+ 
 
     public function store(Request $request)
     {
@@ -130,9 +142,40 @@ class ProdutosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+        $validacao = Validator::make($request->all(), [
+            'nome' => 'required|unique:produtos',
+            'categoria' => 'required',
+        ]);
+
+        if ($validacao->fails()) {
+            return respostaCors([], 422, "Nome de produto invalido ou repetido");
+        }
+
+        $produto = Produto::findOrFail($request->id);
+
+        $produto->nome = $request->nome;
+        $produto->descricao = $request->descricao;
+        $produto->categoria = $request->categoria;
+
+
+        $nomeImagemNovo = null;
+        if($imagem = $request->input('imagem')){
+            $nomeImagemOriginal = $request->input('nomeImagem');
+            $nomeImagemNovo = $this->salvarUnit($imagem, $nomeImagemOriginal);
+        }
+        
+        // Produto::create([
+        //     'nome' => $request->nome,
+        //     'categoria' => $request->categoria,
+        //     'descricao' => $request->descricao,
+        //     'imagem' => $nomeImagemNovo
+
+        // ]);
+
+        return respostaCors([], 200, "Produto " . $request->nome . " adicionado");
     }
 
     /**

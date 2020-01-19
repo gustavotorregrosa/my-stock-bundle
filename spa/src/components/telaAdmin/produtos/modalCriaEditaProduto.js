@@ -4,7 +4,7 @@ import M from 'materialize-css'
 import SelectCategorias from './selectCategorias'
 import { converteBase64, jwtFetch, carregaImagem as customFileLoader } from '../../../suporte/funcoes-customizadas'
 
-class NovoProduto extends Component {
+class CriaEditaProduto extends Component {
 
     constructor(props) {
         super(props)
@@ -17,14 +17,7 @@ class NovoProduto extends Component {
         this.inputTextoArquivo = null
     }
 
-    state = {
-        loading: false,
-        imagem: null,
-        nome: null,
-        categoria: null,
-        descricao: null
-
-    }
+    state = {}
 
     imporSelecaoCategoria = (c = null) => {
         this.childSelecionaCategoria(c)
@@ -39,33 +32,46 @@ class NovoProduto extends Component {
         document.getElementById("quadro-img").src = ""
     }
 
-    zerarEstado = () => {
-        this.setState({
+    setInitialState = () => {
+        this.state = {
             loading: false,
+            id: null,
             nomeImagem: null,
             imagem: null,
             nome: null,
             categoria: null,
             descricao: null
-        })
+        }
 
     }
 
     componentDidMount() {
         this.elem = document.getElementById('modal-novo-produto')
-        this.instance = M.Modal.init(this.elem, {
-            onCloseEnd: () => {
-                this.zerarElementos()
-                this.zerarEstado()
-                
-            }
-        })
+        this.instance = M.Modal.init(this.elem, {})
         this.props.setAbreModal(this.abrirModal)
-      
+
     }
 
-    abrirModal = () => {
+    abrirModal = (p = null) => {
+        this.zerarElementos()
+        this.setInitialState()
+        console.log("o produto passado eh")
+        console.log(p)
         this.instance.open()
+        if (p) {
+            this.inputNome.value = p.nome
+            this.textArea.value = p.descricao
+            M.textareaAutoResize(this.textArea)
+            M.updateTextFields()
+            this.imporSelecaoCategoria(p.categoria)
+            this.setState({
+                ...p
+            })
+        }
+        setTimeout(() => {
+            console.log(this.state)
+        }, 2000)
+
 
     }
 
@@ -205,4 +211,4 @@ class NovoProduto extends Component {
 
 }
 
-export default NovoProduto
+export default CriaEditaProduto
