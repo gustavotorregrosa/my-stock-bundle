@@ -1,11 +1,17 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { jwtFetch } from '../../../suporte/funcoes-customizadas'
 
 class TabelaProdutos extends Component {
 
-    state = {
-        produtos: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            produtos: []
+        }
+        this.listaCompletaProdutos = this.listaCompletaProdutos.bind(this)
     }
+
+    
 
     listaCompletaProdutos = () => {
         jwtFetch("produtos/listar").then(produtos => {
@@ -17,18 +23,15 @@ class TabelaProdutos extends Component {
 
     componentDidMount() {
         this.listaCompletaProdutos()
-        setTimeout(() => {
-            console.log("lista de produtos")
-            console.log(this.state)
-        }, 3000)
+        this.props.setListaPropdutos(this.listaCompletaProdutos)
     }
 
 
     listaItens = () => {
         let produtos = this.state.produtos
         let tbl = []
-        if(produtos.length){
-        tbl = produtos.map(el =>  (<tr key={el.id}><td>{el.nome}</td><td>{this.botoes(el)}</td></tr>))
+        if (produtos.length) {
+            tbl = produtos.map(el => (<tr key={el.id}><td>{el.nome}</td><td>{this.botoes(el)}</td></tr>))
         }
 
         return tbl
@@ -41,15 +44,15 @@ class TabelaProdutos extends Component {
     }
 
     botoes = el => (
-            <div>
-                <a href="#" onClick={(e) => this.ativaEdicao(e, el)}><i class="material-icons">edit</i></a>
-                &nbsp;&nbsp;&nbsp;
+        <div>
+            <a href="#" onClick={(e) => this.ativaEdicao(e, el)}><i class="material-icons">edit</i></a>
+            &nbsp;&nbsp;&nbsp;
                 <a href="#" ><i class="material-icons">delete</i></a>
-            </div>
-        )
-    
+        </div>
+    )
 
-    render(){
+
+    render() {
         return (
             <div>
                 <table>

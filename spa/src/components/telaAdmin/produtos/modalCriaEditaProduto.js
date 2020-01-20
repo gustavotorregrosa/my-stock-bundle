@@ -11,6 +11,7 @@ class CriaEditaProduto extends Component {
         this.elem = null
         this.instance = null
         this.abrirModal = this.abrirModal.bind(this)
+        // this.setState = this.setState.bind(this)
         this.textArea = null
         this.inputNome = null
         this.inputArquivo = null
@@ -18,6 +19,8 @@ class CriaEditaProduto extends Component {
     }
 
     state = {}
+
+
 
     imporSelecaoCategoria = (c = null) => {
         this.childSelecionaCategoria(c)
@@ -33,21 +36,26 @@ class CriaEditaProduto extends Component {
     }
 
     setInitialState = () => {
-        this.state = {
-            loading: false,
+        this.setState = ({
+            loading: null,
             id: null,
             nomeImagem: null,
             imagem: null,
             nome: null,
             categoria: null,
             descricao: null
-        }
+        })
 
     }
 
     componentDidMount() {
         this.elem = document.getElementById('modal-novo-produto')
-        this.instance = M.Modal.init(this.elem, {})
+        this.instance = M.Modal.init(this.elem, {
+            // onCloseStart: () => {
+            //     this.zerarElementos()
+            //     this.setInitialState()
+            // }
+        })
         this.props.setAbreModal(this.abrirModal)
 
     }
@@ -55,6 +63,10 @@ class CriaEditaProduto extends Component {
     abrirModal = (p = null) => {
         this.zerarElementos()
         this.setInitialState()
+        console.log("estado atual")
+        console.log(this.state)
+        console.log("objeto THIS")
+        console.log(this)
         this.instance.open()
         if (p) {
             this.inputNome.value = p.nome
@@ -62,30 +74,39 @@ class CriaEditaProduto extends Component {
             M.textareaAutoResize(this.textArea)
             M.updateTextFields()
             this.imporSelecaoCategoria(p.categoria)
-            this.setState({
-                ...p
+
+            // this.setState({
+            //     ...p
+            // })
+
+
+            this.atualizaEstado({
+                categoria: "laranja"
             })
+
             this.exibeImagem(p.imagem)
-
-
         }
 
+    }
+
+    atualizaEstado = obj => {
+        this.setState(obj).call(this)
     }
 
     getExtensaoMime = str => {
         let extensao = str.split('.')[1]
-        if(extensao == "jpg"){
+        if (extensao == "jpg") {
             extensao = "jpeg"
         }
         return extensao
     }
-    
+
 
     exibeImagem = (nomeImagem = null) => {
-        if(nomeImagem){
-            jwtFetch("produtos/imagem/"+nomeImagem).then(r => {
+        if (nomeImagem) {
+            jwtFetch("produtos/imagem/" + nomeImagem).then(r => {
                 let extensao = this.getExtensaoMime(nomeImagem)
-                const imagem = "data:image/"+extensao+";base64,"+r.imagem64
+                const imagem = "data:image/" + extensao + ";base64," + r.imagem64
                 const quadro = document.getElementById("quadro-img")
                 quadro.src = imagem
             })
@@ -139,6 +160,7 @@ class CriaEditaProduto extends Component {
         setTimeout(() => {
             jwtFetch(opcoes.url, opcoes).then(r => {
                 M.toast({ html: r.mensagem })
+                this.props.listarProdutos()
                 this.fechaModal()
             }).catch(r => {
                 M.toast({ html: r.conteudo.mensagem })

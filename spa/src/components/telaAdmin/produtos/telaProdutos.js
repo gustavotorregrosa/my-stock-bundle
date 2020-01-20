@@ -27,13 +27,17 @@ class TelaProdutos extends Component {
 
     abreModalEditar = (el) => {
         // console.log(el)
-        this.childAbreModalCriaProduto(el)
+        this.childAbreModalCriaEditaProduto(el)
     }
 
 
     abreModalCriaProduto = e => {
         e.preventDefault()
-        this.childAbreModalCriaProduto()
+        this.childAbreModalCriaEditaProduto()
+    }
+
+    listarProdutos = () => {
+        this.childListaProdutos()
     }
 
     render() {
@@ -65,8 +69,8 @@ class TelaProdutos extends Component {
                 </div>
                 <br />
                 <br />
-                <TabelaProdutos editar={(el) => this.abreModalEditar(el)} />
-                <CriaEditaProduto categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaProduto = f} />
+                <TabelaProdutos setListaPropdutos={f => this.childListaProdutos = f} editar={(el) => this.abreModalEditar(el)} />
+                <CriaEditaProduto listarProdutos={() => this.listarProdutos()} categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaEditaProduto = f} />
             </div>
         )
     }
