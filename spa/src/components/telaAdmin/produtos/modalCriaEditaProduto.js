@@ -18,7 +18,15 @@ class CriaEditaProduto extends Component {
         this.inputTextoArquivo = null
     }
 
-    state = {}
+    state = {
+            loading: null,
+            id: null,
+            nomeImagem: null,
+            imagem: null,
+            nome: null,
+            categoria: null,
+            descricao: null
+    }
 
 
 
@@ -51,22 +59,33 @@ class CriaEditaProduto extends Component {
     componentDidMount() {
         this.elem = document.getElementById('modal-novo-produto')
         this.instance = M.Modal.init(this.elem, {
-            // onCloseStart: () => {
-            //     this.zerarElementos()
-            //     this.setInitialState()
-            // }
+            onCloseStart: () => {
+                this.zerarElementos()
+                this.setInitialState()
+            }
         })
         this.props.setAbreModal(this.abrirModal)
 
     }
 
     abrirModal = (p = null) => {
-        this.zerarElementos()
-        this.setInitialState()
+        // this.zerarElementos()
+        // this.setInitialState()
         console.log("estado atual")
         console.log(this.state)
         console.log("objeto THIS")
         console.log(this)
+
+        setTimeout(()=> {
+            this.setState({
+                categoria: "laranja"
+            })
+            setTimeout(()=>{
+                console.log("estado atual 2")
+                console.log(this.state)
+            }, 1000)
+        }, 3000)
+
         this.instance.open()
         if (p) {
             this.inputNome.value = p.nome
