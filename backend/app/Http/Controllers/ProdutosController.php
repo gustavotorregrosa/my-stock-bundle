@@ -146,17 +146,28 @@ class ProdutosController extends Controller
     {
         
         $validacao = Validator::make($request->all(), [
-            'nome' => 'required|unique:produtos',
             'categoria' => 'required',
         ]);
 
         if ($validacao->fails()) {
-            return respostaCors([], 422, "Nome de produto invalido ou repetido");
+            return respostaCors([], 422, "Necessario selecionar CATEGORIA do produto");
         }
 
         $produto = Produto::findOrFail($request->id);
 
-        $produto->nome = $request->nome;
+        if($produto->nome != $request->nome){
+            $validacao = Validator::make($request->all(), [
+                'nome' => 'required|unique:produtos',
+            ]);
+    
+            if ($validacao->fails()) {
+                return respostaCors([], 422, "Nome de produto invalido ou repetido");
+            }
+
+            $produto->nome = $request->nome;
+        }
+
+       
         $produto->descricao = $request->descricao;
         $produto->categoria = $request->categoria;
 
