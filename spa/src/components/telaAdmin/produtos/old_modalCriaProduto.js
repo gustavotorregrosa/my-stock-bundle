@@ -4,7 +4,7 @@ import M from 'materialize-css'
 import SelectCategorias from './selectCategorias'
 import { converteBase64, jwtFetch, carregaImagem as customFileLoader } from '../../../suporte/funcoes-customizadas'
 
-class CriaEditaProduto extends Component {
+class CriaProduto extends Component {
 
     constructor(props) {
         super(props)
@@ -15,11 +15,11 @@ class CriaEditaProduto extends Component {
         this.inputNome = null
         this.inputArquivo = null
         this.inputTextoArquivo = null
+        
     }
 
     state = {
             loading: null,
-            id: null,
             nomeImagem: null,
             imagem: null,
             nome: null,
@@ -29,65 +29,91 @@ class CriaEditaProduto extends Component {
 
 
 
-    imporSelecaoCategoria = (c = null) => {
-        this.childSelecionaCategoria(c)
+
+    limparCategoria = () => {
+        this.childSelecionaCategoria()
     }
 
     zerarElementos = () => {
-        this.textArea.value = null
-        this.inputNome.value = null
-        this.imporSelecaoCategoria()
+        this.textArea.value = ""
+        this.inputNome.value = ""
+        this.limparCategoria()
         this.inputArquivo.files = null
-        this.inputTextoArquivo.value = null
+        this.inputTextoArquivo.value = ""
         document.getElementById("quadro-img").src = ""
+        M.updateTextFields()
+        
     }
 
-    setInitialState = () => {
-        this.setState({
-            loading: null,
-            id: null,
-            nomeImagem: null,
-            imagem: null,
-            nome: null,
-            categoria: null,
-            descricao: null
-        })
+    // setInitialState = () => {
+    //     this.setState = ({
+    //         loading: null,
+    //         id: null,
+    //         nomeImagem: null,
+    //         imagem: null,
+    //         nome: null,
+    //         categoria: null,
+    //         descricao: null
+    //     })
 
-    }
+    // }
 
     componentDidMount() {
         this.elem = document.getElementById('modal-novo-produto')
         this.instance = M.Modal.init(this.elem, {
             onCloseStart: () => {
-                this.zerarElementos()
-                this.setInitialState()
+                // this.zerarElementos()
+                // this.setInitialState()
+               
             }
         })
         this.props.setAbreModal(this.abrirModal)
 
     }
 
-    abrirModal = (p = null) => {
+    abrirModal = () => {
         this.instance.open()
-        if (p) {
-            this.inputNome.value = p.nome
-            this.textArea.value = p.descricao
-            M.textareaAutoResize(this.textArea)
-            M.updateTextFields()
-            this.imporSelecaoCategoria(p.categoria)
+        this.zerarElementos()
+        this.setState = ({
+            loading: null,
+            id: null,
+            nomeImagem: null,
+            imagem: null,
+            nome: null,
+            categoria: null,
+            descricao: null
+        })
+       
+        // this.alteraEstado = ({
+        //     loading: null,
+        //     id: null,
+        //     nomeImagem: null,
+        //     imagem: null,
+        //     nome: null,
+        //     categoria: null,
+        //     descricao: null
+        // })
+        // if (p) {
+        //     this.inputNome.value = p.nome
+        //     this.textArea.value = p.descricao
+        //     M.textareaAutoResize(this.textArea)
+        //     M.updateTextFields()
+        //     this.imporSelecaoCategoria(p.categoria)
 
-            this.setState({
-                ...p
-            })
+        //     // this.setState({
+        //     //     ...p
+        //     // })
 
-            this.exibeImagem(p.imagem)
-        }
+
+        //     this.atualizaEstado({
+        //         categoria: "laranja"
+        //     })
+
+        //     this.exibeImagem(p.imagem)
+        // }
 
     }
 
-    atualizaEstado = obj => {
-        this.setState(obj).call(this)
-    }
 
     getExtensaoMime = str => {
         let extensao = str.split('.')[1]
@@ -249,4 +275,4 @@ class CriaEditaProduto extends Component {
 
 }
 
-export default CriaEditaProduto
+export default CriaProduto

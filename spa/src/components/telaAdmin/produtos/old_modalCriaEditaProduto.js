@@ -11,10 +11,13 @@ class CriaEditaProduto extends Component {
         this.elem = null
         this.instance = null
         this.abrirModal = this.abrirModal.bind(this)
+        // this.setState = this.setState.bind(this)
         this.textArea = null
         this.inputNome = null
         this.inputArquivo = null
         this.inputTextoArquivo = null
+        this.alteraEstado = this.alteraEstado.bind(this)
+        
     }
 
     state = {
@@ -29,6 +32,10 @@ class CriaEditaProduto extends Component {
 
 
 
+    alteraEstado = obj => {
+        this.setState(obj)
+    }
+
     imporSelecaoCategoria = (c = null) => {
         this.childSelecionaCategoria(c)
     }
@@ -42,8 +49,38 @@ class CriaEditaProduto extends Component {
         document.getElementById("quadro-img").src = ""
     }
 
-    setInitialState = () => {
-        this.setState({
+    // setInitialState = () => {
+    //     console.log("teste")
+    //     console.log(this)
+    //     this.setState = ({
+    //         loading: null,
+    //         id: null,
+    //         nomeImagem: null,
+    //         imagem: null,
+    //         nome: null,
+    //         categoria: null,
+    //         descricao: null
+    //     })
+
+    // }
+
+    componentDidMount() {
+        this.elem = document.getElementById('modal-novo-produto')
+        this.instance = M.Modal.init(this.elem, {
+            // onCloseStart: () => {
+            //     this.zerarElementos()
+            //     this.setInitialState()
+               
+            // }
+        })
+        this.props.setAbreModal(this.abrirModal)
+
+    }
+
+    abrirModal = () => {
+        this.instance.open()
+        this.zerarElementos()
+        this.alteraEstado = ({
             loading: null,
             id: null,
             nomeImagem: null,
@@ -52,42 +89,27 @@ class CriaEditaProduto extends Component {
             categoria: null,
             descricao: null
         })
+        // if (p) {
+        //     this.inputNome.value = p.nome
+        //     this.textArea.value = p.descricao
+        //     M.textareaAutoResize(this.textArea)
+        //     M.updateTextFields()
+        //     this.imporSelecaoCategoria(p.categoria)
+
+        //     // this.setState({
+        //     //     ...p
+        //     // })
+
+
+        //     this.atualizaEstado({
+        //         categoria: "laranja"
+        //     })
+
+        //     this.exibeImagem(p.imagem)
+        // }
 
     }
 
-    componentDidMount() {
-        this.elem = document.getElementById('modal-novo-produto')
-        this.instance = M.Modal.init(this.elem, {
-            onCloseStart: () => {
-                this.zerarElementos()
-                this.setInitialState()
-            }
-        })
-        this.props.setAbreModal(this.abrirModal)
-
-    }
-
-    abrirModal = (p = null) => {
-        this.instance.open()
-        if (p) {
-            this.inputNome.value = p.nome
-            this.textArea.value = p.descricao
-            M.textareaAutoResize(this.textArea)
-            M.updateTextFields()
-            this.imporSelecaoCategoria(p.categoria)
-
-            this.setState({
-                ...p
-            })
-
-            this.exibeImagem(p.imagem)
-        }
-
-    }
-
-    atualizaEstado = obj => {
-        this.setState(obj).call(this)
-    }
 
     getExtensaoMime = str => {
         let extensao = str.split('.')[1]
@@ -122,7 +144,7 @@ class CriaEditaProduto extends Component {
         customFileLoader(img, quadro)
         converteBase64(img).then(imagem => {
             imagem = imagem.split('base64,')[1]
-            this.setState({
+            this.alteraEstado({
                 nomeImagem,
                 imagem
             })
@@ -131,7 +153,7 @@ class CriaEditaProduto extends Component {
 
 
     atualizaCategoria = categoria => {
-        this.setState({
+        this.alteraEstado({
             categoria
         })
     }
@@ -168,14 +190,14 @@ class CriaEditaProduto extends Component {
 
     alteraNomeProduto = e => {
         let nome = e.target.value
-        this.setState({
+        this.alteraEstado({
             nome
         })
     }
 
     alteraDescricaoProduto = e => {
         let descricao = e.target.value
-        this.setState({
+        this.alteraEstado({
             descricao
         })
     }
@@ -190,7 +212,7 @@ class CriaEditaProduto extends Component {
                                 ref={
                                     input => this.inputNome = input
                                 }
-                                onChange={e => this.alteraNomeProduto(e)} id="novo-produto" type="text" />
+                                onChange={e => this.alteraNomeProduto(e)} id="novo-produto" type="text" className="validate" />
                             <label htmlFor="novo-produto">Novo Produto</label>
                         </div>
                         <div className="col s6">
@@ -228,7 +250,7 @@ class CriaEditaProduto extends Component {
                                         ref={
                                             input => this.inputTextoArquivo = input
                                         }
-                                        className="file-path" type="text" placeholder="Upload one or more files" />
+                                        className="file-path validate" type="text" placeholder="Upload one or more files" />
                                 </div>
 
                             </div>
