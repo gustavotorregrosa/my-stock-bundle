@@ -171,7 +171,7 @@ class ProdutosController extends Controller
         $produto->descricao = $request->descricao;
         $produto->categoria = $request->categoria;
 
-        // $nomeImagemNovo = null;
+       
         if($imagem = $request->input('imagem')){
             $nomeAntigo = $produto->imagem;
             $nomeImagemOriginal = $request->input('nomeImagem');
@@ -199,8 +199,22 @@ class ProdutosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        try {
+
+            $produto = Produto::findOrFail($id);
+            $nome = $produto->nome;
+            if($imagem = $produto->imagem){
+                @unlink($_SERVER["DOCUMENT_ROOT"]."/imagens/".$imagem);
+            }
+
+            $produto->delete();
+            return respostaCors([], 200, "Produto " . $nome . " deletado ");
+
+        } catch (Exception $e) {
+            return respostaCors([], $e->getCode(), "Excecao: ".$e->getMessage());
+            
+        }
     }
 }

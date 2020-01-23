@@ -206,7 +206,7 @@ class CriaEditaProduto extends Component {
                         <div className="input-field col s6">
                             <i className="material-icons prefix">mode_edit</i>
                             <textarea style={{
-                                minHeight: "8em"
+                                minHeight: "6em"
                             }}
                                 ref={
                                     textarea => this.textArea = textarea
@@ -218,14 +218,19 @@ class CriaEditaProduto extends Component {
                         </div>
                         <div className="input-field file-field col s6">
                             <div className="col s6">
-                                <img className="responsive-img" id="quadro-img" />
+                                <img 
+                                   style={{
+                                    maxHeight: "12em"
+                                }}
+                                className="responsive-img" id="quadro-img" />
                             </div>
                             <div className="col s6">
                                 <div className="btn">
                                     <span>File</span>
                                     <input ref={
                                         input => this.inputArquivo = input
-                                    } onChange={e => this.carregaArquivo(e)} type="file" />
+                                    } 
+                                    onChange={e => this.carregaArquivo(e)} type="file" />
                                 </div>
                                 <div className="file-path-wrapper">
                                     <input

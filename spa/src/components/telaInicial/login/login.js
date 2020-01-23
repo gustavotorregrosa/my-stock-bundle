@@ -98,13 +98,13 @@ class ModalLogin extends Component {
                     <div className="modal-content">
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="email" value={this.state.email} onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
+                                <input id="email" onChange={(e) => this.handleChangeEmail(e)} type="email" className="validate" />
                                 <label htmlFor="email">E-mail</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="password" value={this.state.password} onChange={(e) => this.handleChangePassword(e)} type="password" className="validate" />
+                                <input id="password" onChange={(e) => this.handleChangePassword(e)} type="password" className="validate" />
                                 <label htmlFor="password">Password</label>
                             </div>
                         </div>

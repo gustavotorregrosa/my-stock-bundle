@@ -30,9 +30,15 @@ class TabelaProdutos extends Component {
     listaItens = () => {
         let produtos = this.state.produtos
         let tbl = []
+        
         if (produtos.length) {
+            if(this.props.categoriaSelecionada){
+                let categoria = this.props.categoriaSelecionada
+                produtos = produtos.filter(el => el.categoria == categoria)
+            }
             tbl = produtos.map(el => (<tr key={el.id}><td>{el.nome}</td><td>{this.botoes(el)}</td></tr>))
         }
+        
 
         return tbl
 
@@ -43,11 +49,18 @@ class TabelaProdutos extends Component {
         this.props.editar(el)
     }
 
+    ativaDelecao = (e, el) => {
+        e.preventDefault()
+        this.props.deletar(el)
+       
+
+    }
+
     botoes = el => (
         <div>
             <a href="#" onClick={(e) => this.ativaEdicao(e, el)}><i class="material-icons">edit</i></a>
             &nbsp;&nbsp;&nbsp;
-                <a href="#" ><i class="material-icons">delete</i></a>
+                <a href="#" onClick={(e) => this.ativaDelecao(e, el)} ><i class="material-icons">delete</i></a>
         </div>
     )
 

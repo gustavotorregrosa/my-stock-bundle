@@ -27,4 +27,5 @@ Route::delete('/categorias/deletar/{id}', 'CategoriasController@delete');
 Route::get('/produtos/listar', 'ProdutosController@index');
 Route::post('/produtos/salvar', 'ProdutosController@salvar');
 Route::get('/produtos/imagem/{imagem}', 'ProdutosController@getImagem');
+Route::delete('/produtos/deletar/{id}', 'ProdutosController@delete');
 
