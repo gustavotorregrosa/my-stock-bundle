@@ -136,6 +136,11 @@ class CategoriasController extends Controller
             $categoria = Categoria::findOrFail($id);
             $nome = $categoria->nome;
 
+            if($categoria->produtos->count()){
+                return respostaCors([], 406, "Delete os produtos na categoria " . $nome . " primeiro ");
+            }
+        
+
             $categoria->delete();
             return respostaCors([], 200, "Categoria " . $nome . " deletada ");
 
