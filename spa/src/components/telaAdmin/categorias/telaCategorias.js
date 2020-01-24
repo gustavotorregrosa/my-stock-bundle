@@ -28,7 +28,8 @@ class TelaCategorias extends Component {
     listaCompletaCategorias = () => {
         jwtFetch("categorias/listar").then(categorias => {
             this.setState({
-                categorias
+                categorias,
+                pagina: 1
             })
         })
     }
@@ -65,9 +66,6 @@ class TelaCategorias extends Component {
         return categoriasF
     }
 
-    // abrirModalEdicao = (el) => {
-    //     alert("abriu modal: " + el.id)
-    // }
 
     alteraTextoBusca = (t) => {
         let texto = t ? t : null
@@ -83,17 +81,12 @@ class TelaCategorias extends Component {
     }
 
     abreModalEditaCategoria = cat => {
-        // e.preventDefault()
         this.childAbreModalEditaCategoria(cat)
     }
 
     abreModalDeletaCategoria = cat => {
-        // e.preventDefault()
         this.childAbreModalDeletaCategoria(cat)
     }
-
-
-    
 
 
     render() {
