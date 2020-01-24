@@ -15,7 +15,7 @@ class TelaProdutos extends Component {
         selecao: null,
         busca: null,
         produtos: [],
-        pagina: null
+        pagina: 1
     }
 
     numItensPorPagina = 5
