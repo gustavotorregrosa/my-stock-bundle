@@ -12,11 +12,74 @@ class TelaProdutos extends Component {
 
     state = {
         categorias: [],
-        selecao: null
+        selecao: null,
+        busca: null,
+        produtos: [],
+        pagina: null
     }
+
+    numItensPorPagina = 5
 
     componentDidMount() {
         this.listaCompletaCategorias()
+        this.listaCompletaProdutos()
+    }
+
+    alteraPagina = (pagina = null) => {
+        this.setState({
+            pagina
+        })
+    }
+
+    listaFiltradaProdutos = () => {
+        let produtos = this.state.produtos
+        let categoria = this.state.selecao
+        let busca = this.state.busca
+       
+
+        if (produtos.length) {
+            if (categoria) {
+                produtos = produtos.filter(el => el.categoria == categoria)
+            }
+        }
+
+        if(busca){
+            produtos = produtos.filter(p => p.nome.toLowerCase().includes(busca.toLowerCase()))
+        }
+
+        return produtos
+
+    }
+
+    listaPaginadaProdutos = () => {
+        let pagina = this.state.pagina
+        let produtos = this.listaFiltradaProdutos()
+        let produtosF = null
+        if (produtos) {
+            produtosF = produtos.filter((el, i) => {
+                let inicioEm = (pagina - 1) * this.numItensPorPagina
+                let finalEm = pagina * this.numItensPorPagina - 1
+                if ((i >= inicioEm) && (i <= finalEm)) {
+                    return true
+                }
+                return false
+            })
+        }
+        return produtosF
+
+    }
+
+    listaCompletaProdutos = () => {
+        jwtFetch("produtos/listar").then(produtos => {
+            this.setState({
+                produtos
+            })
+            if(produtos.length <= this.numItensPorPagina){
+                this.setState({
+                    pagina: 1
+                })
+            }
+        })
     }
 
     listaCompletaCategorias = () => {
@@ -46,7 +109,15 @@ class TelaProdutos extends Component {
 
     atualizaOpcaoSelect = selecao => {
         this.setState({
-            selecao
+            selecao,
+            pagina: 1
+        })
+    }
+
+    alteraTextoBusca = busca => {
+        this.setState({
+            busca,
+            pagina: 1
         })
     }
 
@@ -58,7 +129,7 @@ class TelaProdutos extends Component {
                 <div className="row">
                     <div className="col s5"><h5>Produtos</h5></div>
                     <div className="col s6">
-                        <SearchBar informaTxtBusca={(t) => { this.alteraTextoBusca(t) }} />
+                        <SearchBar informaTxtBusca={(t) => this.alteraTextoBusca(t) } />
                     </div>
                     <div className="col s1">
                         <a
@@ -71,17 +142,17 @@ class TelaProdutos extends Component {
 
                 <div className="row">
                     <div className="col s4">
-                        <SelectCategorias atualizaOpcao={(op) => this.atualizaOpcaoSelect(op)} categorias={this.state.categorias} />
+                        <SelectCategorias todas={true} atualizaOpcao={(op) => this.atualizaOpcaoSelect(op)} categorias={this.state.categorias} />
                     </div>
-                    <div className="col s4 offset-s4">
-                        <ListaPaginacao />
+                    <div className="col s4">
+                        <ListaPaginacao pagina={this.state.pagina} alteraPagina={(p) => this.alteraPagina(p)} numItensPorPagina={this.numItensPorPagina} itens={this.listaFiltradaProdutos()} />
                     </div>
                 </div>
                 <br />
                 <br />
-                <TabelaProdutos categoriaSelecionada={this.state.selecao} setListaPropdutos={f => this.childListaProdutos = f} editar={(el) => this.abreModalEditar(el)} deletar={(el) => this.abreModalDeletar(el)} />
-                <CriaEditaProduto listarProdutos={() => this.listarProdutos()} categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaEditaProduto = f} />
-                <DeletaProduto setAbreModal={f => this.childAbreModalDeletaProduto = f} listarProdutos={() => this.listarProdutos()} />
+                <TabelaProdutos produtos={this.listaPaginadaProdutos()} editar={(el) => this.abreModalEditar(el)} deletar={(el) => this.abreModalDeletar(el)} />
+                <CriaEditaProduto listarProdutos={() => this.listaCompletaProdutos()} categorias={this.state.categorias} setAbreModal={f => this.childAbreModalCriaEditaProduto = f} />
+                <DeletaProduto setAbreModal={f => this.childAbreModalDeletaProduto = f} listarProdutos={() => this.listaCompletaProdutos()} />
              
             </div>
         )

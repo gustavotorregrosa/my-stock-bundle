@@ -9,7 +9,7 @@ class TabelaCategorias extends Component {
             return tbl
         }
         return null
-    }    // this.elem = document.querySelector("select")
+    }   
 
     botoes = (el) => {
         return (

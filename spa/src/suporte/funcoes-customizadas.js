@@ -95,7 +95,6 @@ export const jwtFetch = (url, opcoes = null) => {
                 }, 500)
             }
             else if (status < 200 || status > 299) {
-
                 reject(r)
             }
             else {

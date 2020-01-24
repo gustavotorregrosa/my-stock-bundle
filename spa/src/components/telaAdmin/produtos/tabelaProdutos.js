@@ -3,46 +3,27 @@ import { jwtFetch } from '../../../suporte/funcoes-customizadas'
 
 class TabelaProdutos extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            produtos: []
-        }
-        this.listaCompletaProdutos = this.listaCompletaProdutos.bind(this)
+    // constructor(props) {
+    //     super(props)
+    // }
+
+
+
+    // componentDidMount() {
+    //     this.listaCompletaProdutos()
+    //     this.props.setListaPropdutos(this.listaCompletaProdutos)
+    // }
+
+    listaItens = () => {
+        let produtos = this.props.produtos
+        let tbl = null
+        if(produtos){
+            tbl = produtos.map(el => (<tr key={el.id}><td>{el.nome}</td><td>{this.botoes(el)}</td></tr>))
+        } 
+        return tbl
     }
 
     
-
-    listaCompletaProdutos = () => {
-        jwtFetch("produtos/listar").then(produtos => {
-            this.setState({
-                produtos
-            })
-        })
-    }
-
-    componentDidMount() {
-        this.listaCompletaProdutos()
-        this.props.setListaPropdutos(this.listaCompletaProdutos)
-    }
-
-
-    listaItens = () => {
-        let produtos = this.state.produtos
-        let tbl = []
-        
-        if (produtos.length) {
-            if(this.props.categoriaSelecionada){
-                let categoria = this.props.categoriaSelecionada
-                produtos = produtos.filter(el => el.categoria == categoria)
-            }
-            tbl = produtos.map(el => (<tr key={el.id}><td>{el.nome}</td><td>{this.botoes(el)}</td></tr>))
-        }
-        
-
-        return tbl
-
-    }
 
     ativaEdicao = (e, el) => {
         e.preventDefault()
@@ -52,7 +33,7 @@ class TabelaProdutos extends Component {
     ativaDelecao = (e, el) => {
         e.preventDefault()
         this.props.deletar(el)
-       
+
 
     }
 

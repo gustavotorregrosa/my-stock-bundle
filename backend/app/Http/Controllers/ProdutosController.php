@@ -88,13 +88,21 @@ class ProdutosController extends Controller
     public function store(Request $request)
     {
         $validacao = Validator::make($request->all(), [
-            'nome' => 'required|unique:produtos',
-            'categoria' => 'required',
+            'nome' => 'required|unique:produtos'
         ]);
 
         if ($validacao->fails()) {
             return respostaCors([], 422, "Nome de produto invalido ou repetido");
         }
+
+        $validacao = Validator::make($request->all(), [
+            'categoria' => 'required',
+        ]);
+
+        if ($validacao->fails()) {
+            return respostaCors([], 422, "Necessario selecionar CATEGORIA do produto");
+        }
+
 
         $nomeImagemNovo = null;
         if($imagem = $request->input('imagem')){

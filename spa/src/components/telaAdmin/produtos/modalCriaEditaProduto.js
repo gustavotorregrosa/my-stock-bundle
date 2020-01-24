@@ -70,7 +70,6 @@ class CriaEditaProduto extends Component {
     abrirModal = (p = null) => {
         this.instance.open()
         if (p) {
-            
             this.inputNome.value = p.nome
             this.textArea.value = p.descricao
             M.textareaAutoResize(this.textArea)

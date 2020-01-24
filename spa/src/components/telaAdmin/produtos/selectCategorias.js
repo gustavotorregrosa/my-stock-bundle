@@ -61,7 +61,7 @@ class SelectCategorias extends Component {
                     select => this.elem = select
                 }
                     onChange={() => this.enviaCatSelecionada()}>
-                    <option value="0" selected>Todas</option>
+                    {this.props.todas ? (<option value="0" selected>Todas</option>) : (<option value="" disabled selected>Escolha uma categoria</option>)}
                     {this.gerarOpcoes()}
                 </select>
                 <label>Categorias</label>
